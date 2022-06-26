@@ -1,0 +1,87 @@
+package com.interview.tuncode.services.implementations;
+
+import com.interview.tuncode.configurations.customexception.SourceAlreadyExistsException;
+import com.interview.tuncode.configurations.customexception.SourceNotFoundException;
+import com.interview.tuncode.model.Student;
+import com.interview.tuncode.repository.StudentRepository;
+import com.interview.tuncode.services.IStudentService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+
+@Service
+@Slf4j
+public class StudentServiceImp implements IStudentService {
+
+    private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentServiceImp(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    @Override
+    public ResponseEntity<List<Student>> getStudents() {
+        log.info("All students were brought from the system");
+        return ResponseEntity.status(HttpStatus.OK).body(studentRepository.findAll());
+    }
+
+    @Override
+    public Student createStudent(Student stu) {
+        Optional<Student> studentOptional = studentRepository.findById(stu.getId());
+
+        if (studentOptional.isPresent()) {
+            log.info("[{}] [{}] already created", stu.getFirstName(), stu.getLastName());
+            throw new SourceAlreadyExistsException("Student already exists in the system !" + stu.getId() + " " + stu.getFirstName() + " " + stu.getLastName());
+        }
+        Student newStudent = new Student(
+                stu.getFirstName(),
+                stu.getLastName(),
+                stu.getEmail(),
+                java.time.LocalTime.now().toString(),
+                stu.isUpdated()
+        );
+
+        log.info("[{}] [{}] has been created - AT' [{}] ", stu.getFirstName(), stu.getLastName(), java.time.LocalTime.now().toString());
+
+        return studentRepository.save(newStudent);
+    }
+
+    @Override
+    public ResponseEntity<Student> updateStudent(Long id, Student studentDetails) {
+
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() ->
+                        new SourceNotFoundException("Student not found in the system ! " + "STUDENT DETAILS  " + " Id: " + studentDetails.getId() + " Firstname: " + studentDetails.getFirstName() + " E-Mail address: " + studentDetails.getEmail()));
+
+
+        student.setFirstName(studentDetails.getFirstName());
+        student.setLastName(studentDetails.getLastName());
+        student.setEmail(studentDetails.getEmail());
+        student.setCreatedTime(java.time.LocalTime.now().toString());
+        student.setUpdated(true);
+
+        log.info("[{}] [{}] has been successfully Updated - AT' [{}]  ", studentDetails.getFirstName(), studentDetails.getLastName(), student.getCreatedTime());
+
+        return ResponseEntity.status(HttpStatus.OK).body(student);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteStudent(Long id) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() ->
+                        new SourceNotFoundException("Student not found in the system with ID: " + id));
+
+        studentRepository.delete(student);
+
+        log.info("[{}] [{}] has been successfully deleted from the system - AT' [{}]", student.getFirstName(), student.getLastName(), student.getCreatedTime());
+
+        return ResponseEntity.ok("The student has been successfully deleted !");
+    }
+}
