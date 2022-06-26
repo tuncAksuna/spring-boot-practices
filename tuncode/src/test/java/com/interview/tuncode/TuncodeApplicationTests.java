@@ -22,13 +22,13 @@ class TuncodeApplicationTests implements TestCrud {
     @Test
     @Override
     public void testCreate() {
-        Student studentEntity = new Student();
-
-        studentEntity.setFirstName("Sylvie");
-        studentEntity.setLastName("Oksana");
-        studentEntity.setEmail("Oksana.Sylvie@gmail.com");
-        studentEntity.setCreatedTime("");
-        studentEntity.setUpdated(false);
+        Student studentEntity = Student.builder()
+                .firstName("Sylvie")
+                .lastName("Oksana")
+                .email("Oksana.Sylvie@gmail.com")
+                .createdTime("")
+                .isUpdated(false)
+                .build();
 
         studentRepository.save(studentEntity);
 
