@@ -1,21 +1,22 @@
 package com.interview.tuncode.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-@Entity
-@Table(name = "student")
-@NoArgsConstructor
+
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
+
+@Entity
+@Table(name = "student")
 public class Student {
 
     @Id
@@ -43,11 +44,4 @@ public class Student {
     @Column(name = "is_updated")
     private boolean isUpdated;
 
-    public Student(String firstName, String lastName, String email, String createdTime, boolean isUpdated) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.createdTime = createdTime;
-        this.isUpdated = isUpdated;
-    }
 }

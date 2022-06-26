@@ -40,13 +40,16 @@ public class StudentServiceImp implements IStudentService {
             log.info("[{}] [{}] already created", stu.getFirstName(), stu.getLastName());
             throw new SourceAlreadyExistsException("Student already exists in the system !" + stu.getId() + " " + stu.getFirstName() + " " + stu.getLastName());
         }
-        Student newStudent = new Student(
-                stu.getFirstName(),
-                stu.getLastName(),
-                stu.getEmail(),
-                java.time.LocalTime.now().toString(),
-                stu.isUpdated()
-        );
+
+        Student newStudent = Student
+                .builder()
+                .firstName(stu.getFirstName())
+                .lastName(stu.getLastName())
+                .email(stu.getEmail())
+                .createdTime(java.time.LocalTime.now().toString())
+                .isUpdated(stu.isUpdated())
+                .build();
+
 
         log.info("[{}] [{}] has been created - AT' [{}] ", stu.getFirstName(), stu.getLastName(), java.time.LocalTime.now().toString());
 
