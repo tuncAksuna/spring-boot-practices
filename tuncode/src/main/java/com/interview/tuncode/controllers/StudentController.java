@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/v1/")
 @CrossOrigin(value = "*")
-@Slf4j
 public class StudentController {
 
     private final IStudentService iStudentService;

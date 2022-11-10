@@ -1,6 +1,8 @@
 package com.interview.tuncode.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -8,15 +10,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 
 @Entity
-@Table(name = "student")
+@Table
 public class Student {
 
     @Id
@@ -25,23 +24,69 @@ public class Student {
 
     @Size(max = 20)
     @NotEmpty(message = "{firsName.notempty}")
-    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Size(max = 11)
     @NotEmpty(message = "{lastName.notempty")
-    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Email
     @NotEmpty(message = "{email.notempty}")
-    @Column(name = "email", unique = true, updatable = false, nullable = false)
     private String email;
 
-    @Column(name = "created_time", nullable = false)
     private String createdTime;
 
-    @Column(name = "is_updated")
     private boolean isUpdated;
 
+    public String toString() {
+        return "Student(id=" + this.getId() + ", firstName=" + this.getFirstName() + ", lastName=" + this.getLastName() + ", email=" + this.getEmail() + ", createdTime=" + this.getCreatedTime() + ", isUpdated=" + this.isUpdated() + ")";
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public @Size(max = 20) @NotEmpty(message = "{firsName.notempty}") String getFirstName() {
+        return this.firstName;
+    }
+
+    public @Size(max = 11) @NotEmpty(message = "{lastName.notempty") String getLastName() {
+        return this.lastName;
+    }
+
+    public @Email @NotEmpty(message = "{email.notempty}") String getEmail() {
+        return this.email;
+    }
+
+    public String getCreatedTime() {
+        return this.createdTime;
+    }
+
+    public boolean isUpdated() {
+        return this.isUpdated;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setFirstName(@Size(max = 20) @NotEmpty(message = "{firsName.notempty}") String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(@Size(max = 11) @NotEmpty(message = "{lastName.notempty") String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(@Email @NotEmpty(message = "{email.notempty}") String email) {
+        this.email = email;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public void setUpdated(boolean isUpdated) {
+        this.isUpdated = isUpdated;
+    }
 }
