@@ -1,0 +1,25 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  profiles:
+    active: tr
+    default: eng
+  datasource:
+    url: ENC(a6xM5n2tzEIYjsdYpQIQD/63UJopuKPqM21FP+ULaby7JOUdK7vFBowIi9r8+tMyuAGqndE+NwoqSGT+h6fj4Q==)
+    username: ENC(WIhLyy1umQV1ZcV9uM0ptC6tIEerSfV+IhazI0s90OINTTLuav6oqlbXF63lXrf6)
+    password: ENC(YLJ8W8Nf/9QXevjPSElJIpN4yrS/NhRc9Jx5Mws58UiRZgJzWOtzTQ/bJP8MS3wv)
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+  h2:
+    console:
+      enabled: true
