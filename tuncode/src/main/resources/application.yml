@@ -23,3 +23,7 @@ spring:
   h2:
     console:
       enabled: true
+  security:
+    user:
+      name: ENC(/BKdCvStqzurSIcVWrSH7Y28HG0pBKf8c7zOX0KV3zKJPp5fA/vVH0W9/HNbbBQK)
+      password: ENC(N6ysIRB50JCLf/F4KHbizQTxTB+AFuBwLpx7WbVMuyUaBBvon1nWy0Oa+/+iFBQ8)
