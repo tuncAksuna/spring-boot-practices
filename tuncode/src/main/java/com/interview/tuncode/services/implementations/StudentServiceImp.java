@@ -2,6 +2,7 @@ package com.interview.tuncode.services.implementations;
 
 import com.interview.tuncode.configurations.customexception.SourceAlreadyExistsException;
 import com.interview.tuncode.configurations.customexception.SourceNotFoundException;
+import com.interview.tuncode.configurations.customexception.response.AppResponse;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.repository.StudentRepository;
 import com.interview.tuncode.services.IStudentService;
@@ -27,9 +28,9 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
-    public ResponseEntity<List<Student>> getStudents() {
+    public AppResponse<List<Student>> getStudents() {
         log.info("All students were brought from the system");
-        return ResponseEntity.status(HttpStatus.OK).body(studentRepository.findAll());
+        return new AppResponse<List<Student>>(studentRepository.findAll());
     }
 
     @Override
