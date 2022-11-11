@@ -29,17 +29,17 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public Student createStudent(@Valid @RequestBody Student student) {
+    public AppResponse<Student> createStudent(@Valid @RequestBody Student student) {
         return iStudentService.createStudent(student);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student student) {
+    public AppResponse<Student> updateStudent(@PathVariable Long id, @RequestBody Student student) {
         return iStudentService.updateStudent(id, student);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
+    public AppResponse<String> deleteStudent(@PathVariable Long id) {
         return iStudentService.deleteStudent(id);
     }
 

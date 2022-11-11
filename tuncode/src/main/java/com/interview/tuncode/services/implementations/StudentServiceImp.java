@@ -34,7 +34,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
-    public Student createStudent(Student stu) {
+    public AppResponse<Student> createStudent(Student stu) {
         Optional<Student> studentOptional = studentRepository.findById(stu.getId());
 
         if (studentOptional.isPresent()) {
@@ -54,11 +54,11 @@ public class StudentServiceImp implements IStudentService {
 
         log.info("[{}] [{}] has been created - AT' [{}] ", stu.getFirstName(), stu.getLastName(), java.time.LocalTime.now().toString());
 
-        return studentRepository.save(newStudent);
+        return new AppResponse<Student>(studentRepository.save(newStudent));
     }
 
     @Override
-    public ResponseEntity<Student> updateStudent(Long id, Student studentDetails) {
+    public AppResponse<Student> updateStudent(Long id, Student studentDetails) {
 
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
@@ -73,11 +73,11 @@ public class StudentServiceImp implements IStudentService {
 
         log.info("[{}] [{}] has been successfully Updated - AT' [{}]  ", studentDetails.getFirstName(), studentDetails.getLastName(), student.getCreatedTime());
 
-        return ResponseEntity.status(HttpStatus.OK).body(student);
+        return new AppResponse<Student>(studentRepository.save(student));
     }
 
     @Override
-    public ResponseEntity<String> deleteStudent(Long id) {
+    public AppResponse deleteStudent(Long id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
                         new SourceNotFoundException("Student not found in the system with ID: " + id));
@@ -86,6 +86,6 @@ public class StudentServiceImp implements IStudentService {
 
         log.info("[{}] [{}] has been successfully deleted from the system - AT' [{}]", student.getFirstName(), student.getLastName(), student.getCreatedTime());
 
-        return ResponseEntity.ok("The student has been successfully deleted !");
+        return AppResponse.nullResponse();
     }
 }

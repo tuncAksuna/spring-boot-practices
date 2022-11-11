@@ -11,11 +11,11 @@ public interface IStudentService {
 
     AppResponse<List<Student>> getStudents();
 
-    Student createStudent(Student stu);
+    AppResponse<Student> createStudent(Student stu);
 
-    ResponseEntity<Student> updateStudent(Long id, Student studentDetails);
+    AppResponse<Student> updateStudent(Long id, Student studentDetails);
 
-    ResponseEntity<String> deleteStudent(Long id);
+    AppResponse<String> deleteStudent(Long id);
 
 
 }
