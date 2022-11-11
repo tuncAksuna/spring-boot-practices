@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 @Builder
 
 @Entity
-@Table
 public class Student {
 
     @Id
