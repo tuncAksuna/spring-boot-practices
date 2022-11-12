@@ -1,3 +1,6 @@
+#server:
+#  port: 8081
+
 management:
   endpoints:
     web:
@@ -8,7 +11,7 @@ spring:
     active: tr
     default: eng
   datasource:
-    url: ENC(a6xM5n2tzEIYjsdYpQIQD/63UJopuKPqM21FP+ULaby7JOUdK7vFBowIi9r8+tMyuAGqndE+NwoqSGT+h6fj4Q==)
+    url: ENC(RiCa4xMGWfeVEGLuY4oNB/Zok5NxprnPkhHgIGg6R9mQePvRPZi6fVwQMLG62+L0CVHbROp3tDvRlP4rz+Gpcw==)
     username: ENC(WIhLyy1umQV1ZcV9uM0ptC6tIEerSfV+IhazI0s90OINTTLuav6oqlbXF63lXrf6)
     password: ENC(YLJ8W8Nf/9QXevjPSElJIpN4yrS/NhRc9Jx5Mws58UiRZgJzWOtzTQ/bJP8MS3wv)
     driver-class-name: org.h2.Driver
