@@ -13,10 +13,10 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 })
 @Slf4j
 @EnableEncryptableProperties
-public class TuncodeApplication {
+public class SpringBootPracticesApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TuncodeApplication.class, args);
+		SpringApplication.run(SpringBootPracticesApp.class, args);
 		log.info("DEMO PROJECT is being successfully ran !!");
 	}
 

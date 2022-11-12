@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class TuncodeApplicationTests implements TestCrud {
+class SpringBootPracticesAppTests implements TestCrud {
 
     @Autowired
     StudentRepository studentRepository;
