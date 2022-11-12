@@ -7,16 +7,18 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface IStudentMapper {
 
     IStudentMapper MAPPER = Mappers.getMapper(IStudentMapper.class);
 
+    // dto to entity
+    List<Student> toStudentsList(StudentDto student);
+
     Student toStudent(StudentDto student);
 
+    // entity to dto
+    List<StudentDto> toStudentsDtoList(Student student);
+
     StudentDto toStudentDto(Student student);
-
-    List<Student> toStudents(StudentDto student);
-
-    List<StudentDto> toStudentsDto(Student student);
 }
