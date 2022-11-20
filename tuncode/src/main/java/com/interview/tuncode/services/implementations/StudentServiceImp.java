@@ -2,14 +2,12 @@ package com.interview.tuncode.services.implementations;
 
 import com.interview.tuncode.configurations.customexception.SourceAlreadyExistsException;
 import com.interview.tuncode.configurations.customexception.SourceNotFoundException;
-import com.interview.tuncode.configurations.customexception.response.AppResponse;
+import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.repository.StudentRepository;
 import com.interview.tuncode.services.IStudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

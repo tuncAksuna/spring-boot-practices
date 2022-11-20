@@ -1,4 +1,4 @@
-package com.interview.tuncode.configurations.customexception.response;
+package com.interview.tuncode.configurations.response;
 
 import lombok.Getter;
 

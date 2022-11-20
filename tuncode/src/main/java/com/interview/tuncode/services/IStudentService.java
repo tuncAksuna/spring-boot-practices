@@ -1,9 +1,8 @@
 package com.interview.tuncode.services;
 
 
-import com.interview.tuncode.configurations.customexception.response.AppResponse;
+import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.Student;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.interview.tuncode.configurations.customexception.jasyptconfig;
+package com.interview.tuncode.configurations.jasyptconfig;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;

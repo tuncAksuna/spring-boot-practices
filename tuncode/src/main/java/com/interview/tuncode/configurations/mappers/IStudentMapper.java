@@ -1,4 +1,4 @@
-package com.interview.tuncode.configurations.customexception.mappers;
+package com.interview.tuncode.configurations.mappers;
 
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.model.dtos.StudentDto;

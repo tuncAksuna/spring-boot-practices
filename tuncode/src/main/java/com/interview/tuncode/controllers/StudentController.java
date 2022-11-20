@@ -1,11 +1,9 @@
 package com.interview.tuncode.controllers;
 
-import com.interview.tuncode.configurations.customexception.response.AppResponse;
+import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.Student;
-import com.interview.tuncode.repository.StudentRepository;
 import com.interview.tuncode.services.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

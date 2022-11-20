@@ -1,6 +1,6 @@
-package com.interview.tuncode.configurations.customexception.jpa;
+package com.interview.tuncode.configurations.jpa;
 
-import com.interview.tuncode.configurations.customexception.jasyptconfig.JasyptSec;
+import com.interview.tuncode.configurations.jasyptconfig.JasyptSec;
 
 import javax.persistence.AttributeConverter;
 
