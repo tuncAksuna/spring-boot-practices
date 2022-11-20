@@ -28,5 +28,9 @@ spring:
       enabled: true
   security:
     user:
-      name: ENC(/BKdCvStqzurSIcVWrSH7Y28HG0pBKf8c7zOX0KV3zKJPp5fA/vVH0W9/HNbbBQK)
-      password: ENC(N6ysIRB50JCLf/F4KHbizQTxTB+AFuBwLpx7WbVMuyUaBBvon1nWy0Oa+/+iFBQ8)
+      name: tuncode
+      password: 123456
+
+logging:
+  pattern:
+    console: "%clr(%-5p) %clr(${PID}){cyan} %clr(--->){red} %clr([%8.15t]){cyan} %clr(%-40.40logger{0}){blue} %clr(--->){red} %clr(%m){faint}%n"
