@@ -1,8 +1,11 @@
 package com.interview.tuncode.model;
 
+import com.interview.tuncode.configurations.jpa.PasswordConverter;
+import com.interview.tuncode.model.enums.EStudentRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,6 +16,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 
 @Entity
 public class Student {
@@ -37,55 +41,85 @@ public class Student {
 
     private boolean isUpdated;
 
-    public String toString() {
-        return "Student(id=" + this.getId() + ", firstName=" + this.getFirstName() + ", lastName=" + this.getLastName() + ", email=" + this.getEmail() + ", createdTime=" + this.getCreatedTime() + ", isUpdated=" + this.isUpdated() + ")";
-    }
+    @Column(unique = true)
+    private String username;
+
+    @Convert(converter = PasswordConverter.class)
+    private String secretText;
+
+    @Enumerated(EnumType.STRING)
+    private EStudentRole studentRole;
+
 
     public long getId() {
         return this.id;
-    }
-
-    public @Size(max = 20) @NotEmpty(message = "{firsName.notempty}") String getFirstName() {
-        return this.firstName;
-    }
-
-    public @Size(max = 11) @NotEmpty(message = "{lastName.notempty") String getLastName() {
-        return this.lastName;
-    }
-
-    public @Email @NotEmpty(message = "{email.notempty}") String getEmail() {
-        return this.email;
-    }
-
-    public String getCreatedTime() {
-        return this.createdTime;
-    }
-
-    public boolean isUpdated() {
-        return this.isUpdated;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public void setFirstName(@Size(max = 20) @NotEmpty(message = "{firsName.notempty}") String firstName) {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public void setLastName(@Size(max = 11) @NotEmpty(message = "{lastName.notempty") String lastName) {
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public void setEmail(@Email @NotEmpty(message = "{email.notempty}") String email) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCreatedTime() {
+        return createdTime;
     }
 
     public void setCreatedTime(String createdTime) {
         this.createdTime = createdTime;
     }
 
-    public void setUpdated(boolean isUpdated) {
-        this.isUpdated = isUpdated;
+    public boolean isUpdated() {
+        return isUpdated;
+    }
+
+    public void setUpdated(boolean updated) {
+        isUpdated = updated;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getSecretText() {
+        return secretText;
+    }
+
+    public void setSecretText(String secretText) {
+        this.secretText = secretText;
+    }
+
+    public EStudentRole getStudentRole() {
+        return studentRole;
+    }
+
+    public void setStudentRole(EStudentRole studentRole) {
+        this.studentRole = studentRole;
     }
 }
