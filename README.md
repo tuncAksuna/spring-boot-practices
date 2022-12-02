@@ -7,5 +7,6 @@
 - Tested CRUD Operations with *spring-boot-starter-test*
 - Custom objects like
 - Used Jasypt to encrypt properties (database url, username,password etc.)
+- Used MapStruct for mapping objects
 
 
