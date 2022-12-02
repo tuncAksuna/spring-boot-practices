@@ -5,7 +5,7 @@
 - The best package archtitecture has been tried to designed
 - Slf4j is used for logging message
 - Tested CRUD Operations with *spring-boot-starter-test*
-- Custom objects like
+- Custom objects like AppResponse
 - Used Jasypt to encrypt properties (database url, username,password etc.)
 - Used MapStruct for mapping objects
 
