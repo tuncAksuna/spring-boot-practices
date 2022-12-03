@@ -1,11 +1,10 @@
-package com.interview.tuncode.controllers;
+package com.interview.tuncode.controllers.student;
 
 import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.Student;
-import com.interview.tuncode.services.IStudentService;
+import com.interview.tuncode.services.student.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,26 +21,26 @@ public class StudentController {
         this.iStudentService = iStudentService;
     }
 
-    @GetMapping("/allStudents")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','USER')")
+    @GetMapping("/students")
+    //@PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','USER')")
     public AppResponse<List<Student>> getStudents() {
         return iStudentService.getStudents();
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
+    //@PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
     public AppResponse<Student> createStudent(@Valid @RequestBody Student student) {
         return iStudentService.createStudent(student);
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
+    //@PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
     public AppResponse<Student> updateStudent(@PathVariable Long id, @RequestBody Student student) {
         return iStudentService.updateStudent(id, student);
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
+    //@PreAuthorize("hasAnyRole('SUPER_ADMIN')")
     public AppResponse<String> deleteStudent(@PathVariable Long id) {
         return iStudentService.deleteStudent(id);
     }

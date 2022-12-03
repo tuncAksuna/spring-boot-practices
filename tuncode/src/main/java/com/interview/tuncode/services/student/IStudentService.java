@@ -1,4 +1,4 @@
-package com.interview.tuncode.services;
+package com.interview.tuncode.services.student;
 
 
 import com.interview.tuncode.configurations.response.AppResponse;

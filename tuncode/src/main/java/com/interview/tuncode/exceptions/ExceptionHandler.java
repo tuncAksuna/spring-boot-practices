@@ -1,4 +1,4 @@
-package com.interview.tuncode.configurations.customexception;
+package com.interview.tuncode.exceptions;
 
 import com.interview.tuncode.model.Student;
 import org.springframework.http.HttpStatus;

@@ -1,11 +1,10 @@
-package com.interview.tuncode.services.implementations;
+package com.interview.tuncode.services.student;
 
-import com.interview.tuncode.configurations.customexception.SourceAlreadyExistsException;
-import com.interview.tuncode.configurations.customexception.SourceNotFoundException;
+import com.interview.tuncode.exceptions.SourceAlreadyExistsException;
+import com.interview.tuncode.exceptions.SourceNotFoundException;
 import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.Student;
-import com.interview.tuncode.repository.StudentRepository;
-import com.interview.tuncode.services.IStudentService;
+import com.interview.tuncode.repository.student.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,10 +46,13 @@ public class StudentServiceImp implements IStudentService {
                 .email(stu.getEmail())
                 .createdTime(java.time.LocalTime.now().toString())
                 .isUpdated(stu.isUpdated())
+                .username(stu.getUsername())
+                .secretText(stu.getSecretText())
+                .studentRole(stu.getStudentRole())
                 .build();
 
 
-        log.info("[{}] [{}] has been created - AT' [{}] ", stu.getFirstName(), stu.getLastName(), java.time.LocalTime.now().toString());
+        log.info("[{}] [{}] has been created - at' [{}] ", stu.getFirstName(), stu.getLastName(), java.time.LocalTime.now().toString());
 
         return new AppResponse<Student>(studentRepository.save(newStudent));
     }
@@ -69,7 +71,7 @@ public class StudentServiceImp implements IStudentService {
         student.setCreatedTime(java.time.LocalTime.now().toString());
         student.setUpdated(true);
 
-        log.info("[{}] [{}] has been successfully Updated - AT' [{}]  ", studentDetails.getFirstName(), studentDetails.getLastName(), student.getCreatedTime());
+        log.info("[{}] [{}] has been successfully Updated - at' [{}]  ", studentDetails.getFirstName(), studentDetails.getLastName(), student.getCreatedTime());
 
         return new AppResponse<Student>(studentRepository.save(student));
     }
@@ -82,7 +84,7 @@ public class StudentServiceImp implements IStudentService {
 
         studentRepository.delete(student);
 
-        log.info("[{}] [{}] has been successfully deleted from the system - AT' [{}]", student.getFirstName(), student.getLastName(), student.getCreatedTime());
+        log.info("[{}] [{}] has been successfully deleted from the system - at' [{}]", student.getFirstName(), student.getLastName(), student.getCreatedTime());
 
         return AppResponse.nullResponse();
     }
