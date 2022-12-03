@@ -40,6 +40,7 @@ public class JasyptSec {
             while (true) {
                 System.out.println("1-Encrypt");
                 System.out.println("2-Decrypt");
+                System.out.println("2-Exit");
                 System.out.println("Your choose: ");
                 int menuIndex = scanner.nextInt();
 
