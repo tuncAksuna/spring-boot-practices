@@ -2,10 +2,7 @@ package com.interview.tuncode.model;
 
 import com.interview.tuncode.configurations.jpa.PasswordConverter;
 import com.interview.tuncode.model.enums.EStudentRole;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,6 +14,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Builder
 @ToString
+@Getter
+@Setter
 
 @Entity
 public class Student {
@@ -51,75 +50,4 @@ public class Student {
     private EStudentRole studentRole;
 
 
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public boolean isUpdated() {
-        return isUpdated;
-    }
-
-    public void setUpdated(boolean updated) {
-        isUpdated = updated;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getSecretText() {
-        return secretText;
-    }
-
-    public void setSecretText(String secretText) {
-        this.secretText = secretText;
-    }
-
-    public EStudentRole getStudentRole() {
-        return studentRole;
-    }
-
-    public void setStudentRole(EStudentRole studentRole) {
-        this.studentRole = studentRole;
-    }
 }
