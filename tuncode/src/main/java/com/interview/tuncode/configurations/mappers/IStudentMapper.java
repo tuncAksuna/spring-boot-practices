@@ -3,6 +3,7 @@ package com.interview.tuncode.configurations.mappers;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.model.dtos.StudentDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -12,13 +13,14 @@ public interface IStudentMapper {
 
     IStudentMapper MAPPER = Mappers.getMapper(IStudentMapper.class);
 
-    // dto to entity
-    List<Student> toStudentsList(StudentDto student);
 
-    Student toStudent(StudentDto student);
+    List<Student> mapToStudentsList(List<StudentDto> dto);
 
-    // entity to dto
-    List<StudentDto> toStudentsDtoList(Student student);
+    List<StudentDto> mapToStudentsDtoList(List<Student> entity);
 
-    StudentDto toStudentDto(Student student);
+    @Mapping(target = "email", source = "dto.emailAddress")
+    Student mapToStudent(StudentDto dto);
+
+    @Mapping(target = "emailAddress", source = "entity.email")
+    StudentDto mapToStudentDto(Student entity);
 }
