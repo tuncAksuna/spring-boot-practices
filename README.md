@@ -9,4 +9,5 @@
 - Used Jasypt to encrypt properties (database url, username,password etc.)
 - Used MapStruct for mapping the objects
 - Custom annotations
+- Transactions (used @Transactional annotation for transaction management)
 
