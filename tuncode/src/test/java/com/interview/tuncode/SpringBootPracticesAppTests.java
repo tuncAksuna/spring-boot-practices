@@ -1,7 +1,7 @@
 package com.interview.tuncode;
 
 import com.interview.tuncode.model.Student;
-import com.interview.tuncode.repository.StudentRepository;
+import com.interview.tuncode.repository.student.StudentRepository;
 import com.interview.tuncode.test.TestCrud;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

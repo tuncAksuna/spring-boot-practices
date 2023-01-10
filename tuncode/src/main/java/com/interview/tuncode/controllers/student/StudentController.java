@@ -1,7 +1,10 @@
 package com.interview.tuncode.controllers.student;
 
+import com.interview.tuncode.configurations.annotations.BusinessClass;
+import com.interview.tuncode.configurations.mappers.IStudentMapper;
 import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.Student;
+import com.interview.tuncode.model.dtos.StudentDto;
 import com.interview.tuncode.services.student.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,26 +25,28 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    //@PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','USER')")
     public AppResponse<List<Student>> getStudents() {
         return iStudentService.getStudents();
     }
 
     @PostMapping("/create")
-    //@PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
-    public AppResponse<Student> createStudent(@Valid @RequestBody Student student) {
-        return iStudentService.createStudent(student);
+    public AppResponse<StudentDto> createStudent(@Valid @RequestBody StudentDto studentDto) {
+        Student student = IStudentMapper.MAPPER.mapToStudent(studentDto);
+        iStudentService.createStudent(student);
+        return new AppResponse<>(IStudentMapper.MAPPER.mapToStudentDto(student));
     }
 
     @PutMapping("/update/{id}")
-    //@PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
-    public AppResponse<Student> updateStudent(@PathVariable Long id, @RequestBody Student student) {
-        return iStudentService.updateStudent(id, student);
+    public AppResponse<StudentDto> updateStudent(@PathVariable @BusinessClass(Student.class) Long id,
+                                                 @RequestBody StudentDto studentDto) {
+        Student student = IStudentMapper.MAPPER.mapToStudent(studentDto); // dto to entity
+        student.setId(id);
+        iStudentService.updateStudent(id, student);
+        return new AppResponse<StudentDto>(IStudentMapper.MAPPER.mapToStudentDto(student));
     }
 
     @DeleteMapping("/delete/{id}")
-    //@PreAuthorize("hasAnyRole('SUPER_ADMIN')")
-    public AppResponse<String> deleteStudent(@PathVariable Long id) {
+    public AppResponse<String> deleteStudent(@PathVariable @BusinessClass(Student.class) Long id) {
         return iStudentService.deleteStudent(id);
     }
 

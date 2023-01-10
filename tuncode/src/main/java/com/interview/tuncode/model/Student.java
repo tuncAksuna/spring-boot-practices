@@ -1,5 +1,6 @@
 package com.interview.tuncode.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.interview.tuncode.configurations.jpa.PasswordConverter;
 import com.interview.tuncode.model.enums.EStudentRole;
 import lombok.*;
@@ -25,7 +26,7 @@ public class Student {
     private long id;
 
     @Size(max = 20)
-    @NotEmpty(message = "{firsName.notempty}")
+    @NotEmpty(message = "{firstName.notempty}")
     private String firstName;
 
     @Size(max = 11)
@@ -36,6 +37,7 @@ public class Student {
     @NotEmpty(message = "{email.notempty}")
     private String email;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private String createdTime;
 
     private boolean isUpdated;

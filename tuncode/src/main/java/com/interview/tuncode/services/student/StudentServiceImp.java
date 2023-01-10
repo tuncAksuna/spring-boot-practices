@@ -8,7 +8,11 @@ import com.interview.tuncode.repository.student.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +22,7 @@ import java.util.Optional;
 public class StudentServiceImp implements IStudentService {
 
     private final StudentRepository studentRepository;
+    private static final String DATE_FORMAT = "dd-MM-yyyy";
 
     @Autowired
     public StudentServiceImp(StudentRepository studentRepository) {
@@ -25,12 +30,14 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public AppResponse<List<Student>> getStudents() {
         log.info("All students were brought from the system");
-        return new AppResponse<List<Student>>(studentRepository.findAll());
+        return new AppResponse<>(studentRepository.findAll());
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public AppResponse<Student> createStudent(Student stu) {
         Optional<Student> studentOptional = studentRepository.findById(stu.getId());
 
@@ -44,8 +51,7 @@ public class StudentServiceImp implements IStudentService {
                 .firstName(stu.getFirstName())
                 .lastName(stu.getLastName())
                 .email(stu.getEmail())
-                .createdTime(java.time.LocalTime.now().toString())
-                .isUpdated(stu.isUpdated())
+                .createdTime(new SimpleDateFormat(DATE_FORMAT).format(new Date()))
                 .username(stu.getUsername())
                 .secretText(stu.getSecretText())
                 .studentRole(stu.getStudentRole())
@@ -54,22 +60,24 @@ public class StudentServiceImp implements IStudentService {
 
         log.info("[{}] [{}] has been created - at' [{}] ", stu.getFirstName(), stu.getLastName(), java.time.LocalTime.now().toString());
 
-        return new AppResponse<Student>(studentRepository.save(newStudent));
+        return new AppResponse<>(studentRepository.save(newStudent));
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public AppResponse<Student> updateStudent(Long id, Student studentDetails) {
 
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
-                        new SourceNotFoundException("Student not found in the system ! " + "STUDENT DETAILS  " + " Id: " + studentDetails.getId() + " Firstname: " + studentDetails.getFirstName() + " E-Mail address: " + studentDetails.getEmail()));
+                        new SourceNotFoundException("Student not found in the system ! " + " " + "id" + studentDetails.getId()));
 
 
         student.setFirstName(studentDetails.getFirstName());
         student.setLastName(studentDetails.getLastName());
         student.setEmail(studentDetails.getEmail());
-        student.setCreatedTime(java.time.LocalTime.now().toString());
+        student.setCreatedTime(new SimpleDateFormat(DATE_FORMAT).format(new Date()));
         student.setUpdated(true);
+        student.setSecretText(studentDetails.getSecretText());
 
         log.info("[{}] [{}] has been successfully Updated - at' [{}]  ", studentDetails.getFirstName(), studentDetails.getLastName(), student.getCreatedTime());
 
@@ -77,6 +85,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public AppResponse deleteStudent(Long id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->

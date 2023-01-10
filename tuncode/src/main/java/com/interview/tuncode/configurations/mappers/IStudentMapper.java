@@ -4,6 +4,7 @@ import com.interview.tuncode.model.Student;
 import com.interview.tuncode.model.dtos.StudentDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -18,9 +19,15 @@ public interface IStudentMapper {
 
     List<StudentDto> mapToStudentsDtoList(List<Student> entity);
 
-    @Mapping(target = "email", source = "dto.emailAddress")
+    @Mappings({
+            @Mapping(target = "email", source = "dto.emailAddress"),
+            @Mapping(target = "secretText", source = "dto.token")
+    })
     Student mapToStudent(StudentDto dto);
 
-    @Mapping(target = "emailAddress", source = "entity.email")
+    @Mappings({
+            @Mapping(target = "emailAddress", source = "entity.email"),
+            @Mapping(target = "token", source = "entity.secretText")
+    })
     StudentDto mapToStudentDto(Student entity);
 }

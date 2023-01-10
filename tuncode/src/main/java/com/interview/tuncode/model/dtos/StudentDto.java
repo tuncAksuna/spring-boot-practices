@@ -10,4 +10,5 @@ public class StudentDto {
     private String emailAddress;
     private String createdTime;
     private boolean isUpdated;
+    private Long token;
 }
