@@ -2,7 +2,6 @@ package com.interview.tuncode.services.student;
 
 import com.interview.tuncode.exceptions.SourceAlreadyExistsException;
 import com.interview.tuncode.exceptions.SourceNotFoundException;
-import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.repository.student.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -31,14 +30,14 @@ public class StudentServiceImp implements IStudentService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public AppResponse<List<Student>> getStudents() {
+    public List<Student> getStudents() {
         log.info("All students were brought from the system");
-        return new AppResponse<>(studentRepository.findAll());
+        return studentRepository.findAll();
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public AppResponse<Student> createStudent(Student stu) {
+    public Student createStudent(Student stu) {
         Optional<Student> studentOptional = studentRepository.findById(stu.getId());
 
         if (studentOptional.isPresent()) {
@@ -60,12 +59,12 @@ public class StudentServiceImp implements IStudentService {
 
         log.info("[{}] [{}] has been created - at' [{}] ", stu.getFirstName(), stu.getLastName(), java.time.LocalTime.now().toString());
 
-        return new AppResponse<>(studentRepository.save(newStudent));
+        return studentRepository.save(newStudent);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public AppResponse<Student> updateStudent(Long id, Student studentDetails) {
+    public Student updateStudent(Long id, Student studentDetails) {
 
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
@@ -79,14 +78,14 @@ public class StudentServiceImp implements IStudentService {
         student.setUpdated(true);
         student.setSecretText(studentDetails.getSecretText());
 
-        log.info("[{}] [{}] has been successfully Updated - at' [{}]  ", studentDetails.getFirstName(), studentDetails.getLastName(), student.getCreatedTime());
+        log.info("[{}] [{}] has been successfully Updated - at' [{}]  ", studentDetails.getFirstName(), studentDetails.getLastName(), new SimpleDateFormat(DATE_FORMAT).format(new Date().getTime()));
 
-        return new AppResponse<Student>(studentRepository.save(student));
+        return studentRepository.save(student);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public AppResponse deleteStudent(Long id) {
+    public String deleteStudent(Long id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
                         new SourceNotFoundException("Student not found in the system with ID: " + id));
@@ -95,6 +94,11 @@ public class StudentServiceImp implements IStudentService {
 
         log.info("[{}] [{}] has been successfully deleted from the system - at' [{}]", student.getFirstName(), student.getLastName(), student.getCreatedTime());
 
-        return AppResponse.nullResponse();
+        return "Deleted student from the system";
+    }
+
+    @Override
+    public List<Student> getUpdatedStudents() {
+        return studentRepository.getUpdatedStudents();
     }
 }

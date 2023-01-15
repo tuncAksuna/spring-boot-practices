@@ -26,7 +26,7 @@ public class StudentController {
 
     @GetMapping("/students")
     public AppResponse<List<Student>> getStudents() {
-        return iStudentService.getStudents();
+        return new AppResponse<>(iStudentService.getStudents());
     }
 
     @PostMapping("/create")
@@ -39,15 +39,20 @@ public class StudentController {
     @PutMapping("/update/{id}")
     public AppResponse<StudentDto> updateStudent(@PathVariable @BusinessClass(Student.class) Long id,
                                                  @RequestBody StudentDto studentDto) {
-        Student student = IStudentMapper.MAPPER.mapToStudent(studentDto); // dto to entity
+        Student student = IStudentMapper.MAPPER.mapToStudent(studentDto);
         student.setId(id);
         iStudentService.updateStudent(id, student);
-        return new AppResponse<StudentDto>(IStudentMapper.MAPPER.mapToStudentDto(student));
+        return new AppResponse<>(IStudentMapper.MAPPER.mapToStudentDto(student));
     }
 
     @DeleteMapping("/delete/{id}")
     public AppResponse<String> deleteStudent(@PathVariable @BusinessClass(Student.class) Long id) {
-        return iStudentService.deleteStudent(id);
+        return new AppResponse<>(iStudentService.deleteStudent(id));
+    }
+
+    @GetMapping("/updatedStudents")
+    public AppResponse<List<Student>> getUpdatedStudents() {
+        return new AppResponse<>(iStudentService.getUpdatedStudents());
     }
 
 }
