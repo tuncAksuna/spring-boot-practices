@@ -6,7 +6,7 @@ import java.time.ZonedDateTime;
 
 public class ErrorResponse {
 
-    private final boolean studentUpdatedBefore;
+    private boolean studentUpdatedBefore;
     private final String message;
     private final int http_STATUS;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
@@ -15,6 +15,12 @@ public class ErrorResponse {
 
     public ErrorResponse(boolean studentUpdatedBefore, String message, int http_STATUS, ZonedDateTime zonedDateTime) {
         this.studentUpdatedBefore = studentUpdatedBefore;
+        this.message = message;
+        this.http_STATUS = http_STATUS;
+        this.zonedDateTime = zonedDateTime;
+    }
+
+    public ErrorResponse(String message, int http_STATUS, ZonedDateTime zonedDateTime) {
         this.message = message;
         this.http_STATUS = http_STATUS;
         this.zonedDateTime = zonedDateTime;

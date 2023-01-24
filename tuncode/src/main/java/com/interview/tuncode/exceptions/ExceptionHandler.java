@@ -34,7 +34,6 @@ public class ExceptionHandler {
         HttpStatus status = HttpStatus.NOT_FOUND;
 
         ErrorResponse errorResponse = new ErrorResponse(
-                student.isUpdated(),
                 exc.getLocalizedMessage(),
                 status.value(),
                 ZonedDateTime.now(ZoneId.of("Z"))
