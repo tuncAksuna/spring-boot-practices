@@ -55,4 +55,10 @@ public class StudentController {
         return new AppResponse<>(iStudentService.getUpdatedStudents());
     }
 
+    @GetMapping("/student/{id}")
+    public AppResponse<Student> getStudentById(@PathVariable("id")
+                                               @BusinessClass(Student.class) Long id) {
+        return new AppResponse<>(iStudentService.getStudentById(id));
+    }
+
 }

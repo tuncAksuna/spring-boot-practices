@@ -17,4 +17,5 @@ public interface IStudentService {
 
     List<Student> getUpdatedStudents();
 
+    Student getStudentById(Long id);
 }

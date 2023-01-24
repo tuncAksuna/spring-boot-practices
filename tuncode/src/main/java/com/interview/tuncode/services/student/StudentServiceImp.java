@@ -101,4 +101,9 @@ public class StudentServiceImp implements IStudentService {
     public List<Student> getUpdatedStudents() {
         return studentRepository.getUpdatedStudents();
     }
+
+    @Override
+    public Student getStudentById(Long id) {
+        return studentRepository.getStudentById(id);
+    }
 }
