@@ -8,10 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
-@SpringBootApplication(exclude = {
-		SecurityAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class
-})
+@SpringBootApplication
 @Slf4j
 @EnableEncryptableProperties
 @EnableGlobalMethodSecurity(prePostEnabled = true)
