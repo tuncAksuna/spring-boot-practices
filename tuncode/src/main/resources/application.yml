@@ -28,8 +28,8 @@ spring:
       enabled: true
   security:
     user:
-      name: tuncode
-      password: 123456
+      name: ENC(pEKivJEVqKBxvOKt3nSWVJt14kz1fzL3c39n2o3cwCUcRQcpbLDAcxaV9h3d+5ph)
+      password: ENC(v1hc6COGOuOgTcg6vtB28pTjBEHfoJN0+o1Pr4Z/KPUDnvP60v3lKZ8hRt4wyv54)
 
 logging:
   pattern:
