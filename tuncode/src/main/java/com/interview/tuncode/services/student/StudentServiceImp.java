@@ -106,4 +106,9 @@ public class StudentServiceImp implements IStudentService {
     public Student getStudentById(Long id) {
         return studentRepository.getStudentById(id);
     }
+
+    @Override
+    public long getStudentsCount() {
+        return studentRepository.getStudentsCount();
+    }
 }

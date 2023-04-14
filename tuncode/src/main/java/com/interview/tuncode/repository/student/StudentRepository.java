@@ -18,4 +18,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query("select std from Student std where std.id = :id")
     Student getStudentById(@Param("id") Long id);
+
+    @Query("select count(std) from Student std")
+    long getStudentsCount();
+
 }

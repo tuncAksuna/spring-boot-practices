@@ -61,4 +61,9 @@ public class StudentController {
         return new AppResponse<>(iStudentService.getStudentById(id));
     }
 
+    @GetMapping("/student/counts")
+    public AppResponse<Long> getStudentsCount(){
+        return new AppResponse<>(iStudentService.getStudentsCount());
+    }
+
 }

@@ -8,6 +8,7 @@ public class StudentDto {
     private String firstName;
     private String lastName;
     private String emailAddress;
+    // "createdTime" temporarily given string.
     private String createdTime;
     private boolean isUpdated;
     private Long token;
