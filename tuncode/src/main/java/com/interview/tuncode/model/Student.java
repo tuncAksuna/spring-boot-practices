@@ -1,6 +1,7 @@
 package com.interview.tuncode.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.interview.tuncode.configurations.jpa.PasswordConverter;
 import com.interview.tuncode.model.enums.EStudentRole;
 import lombok.*;
@@ -40,6 +41,7 @@ public class Student {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private String createdTime;
 
+    @JsonIgnore
     private boolean isUpdated;
 
     @Column(unique = true)

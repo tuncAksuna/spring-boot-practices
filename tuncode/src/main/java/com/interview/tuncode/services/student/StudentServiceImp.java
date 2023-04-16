@@ -5,7 +5,6 @@ import com.interview.tuncode.exceptions.SourceNotFoundException;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.repository.student.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -23,7 +21,6 @@ public class StudentServiceImp implements IStudentService {
     private final StudentRepository studentRepository;
     private static final String DATE_FORMAT = "dd-MM-yyyy";
 
-    @Autowired
     public StudentServiceImp(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
@@ -31,18 +28,20 @@ public class StudentServiceImp implements IStudentService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Student> getStudents() {
-        log.info("All students were brought from the system");
+        log.info("All students brought from the system");
         return studentRepository.findAll();
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
     public Student createStudent(Student stu) {
-        Optional<Student> studentOptional = studentRepository.findById(stu.getId());
+//        Optional<Student> studentOptional = studentRepository.findById(stu.getId());
 
-        if (studentOptional.isPresent()) {
-            log.info("[{}] [{}] already created", stu.getFirstName(), stu.getLastName());
-            throw new SourceAlreadyExistsException("Student already exists in the system !" + stu.getId() + " " + stu.getFirstName() + " " + stu.getLastName());
+        Student student = studentRepository.findByUsername(stu.getUsername());
+
+        if (student != null && student.getUsername().equalsIgnoreCase(stu.getUsername())) {
+            log.warn("{} already created. Please try again with another username !", stu.getUsername());
+            throw new SourceAlreadyExistsException(stu.getUsername() + " already created. Please try again with another username!");
         }
 
         Student newStudent = Student
@@ -57,19 +56,19 @@ public class StudentServiceImp implements IStudentService {
                 .build();
 
 
-        log.info("[{}] [{}] has been created - at' [{}] ", stu.getFirstName(), stu.getLastName(), java.time.LocalTime.now().toString());
+        log.info("{} {} has been created - at' {} ", stu.getFirstName(), stu.getLastName(), new SimpleDateFormat(DATE_FORMAT).format(new Date().getTime()));
 
         return studentRepository.save(newStudent);
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
     public Student updateStudent(Long id, Student studentDetails) {
 
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
                         new SourceNotFoundException("Student not found in the system ! " + " " + "id" + studentDetails.getId()));
-
+        log.warn("Student does not exists in the system. Id : {}", student.getId());
 
         student.setFirstName(studentDetails.getFirstName());
         student.setLastName(studentDetails.getLastName());
@@ -78,13 +77,13 @@ public class StudentServiceImp implements IStudentService {
         student.setUpdated(true);
         student.setSecretText(studentDetails.getSecretText());
 
-        log.info("[{}] [{}] has been successfully Updated - at' [{}]  ", studentDetails.getFirstName(), studentDetails.getLastName(), new SimpleDateFormat(DATE_FORMAT).format(new Date().getTime()));
+        log.info("{} {} has been successfully Updated - at' {}  ", studentDetails.getFirstName(), studentDetails.getLastName(), new SimpleDateFormat(DATE_FORMAT).format(new Date().getTime()));
 
         return studentRepository.save(student);
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
     public String deleteStudent(Long id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
@@ -92,23 +91,32 @@ public class StudentServiceImp implements IStudentService {
 
         studentRepository.delete(student);
 
-        log.info("[{}] [{}] has been successfully deleted from the system - at' [{}]", student.getFirstName(), student.getLastName(), student.getCreatedTime());
+        log.info("{} {} has been successfully deleted from the system !", student.getFirstName(), student.getLastName());
 
         return "Deleted student from the system";
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Student> getUpdatedStudents() {
         return studentRepository.getUpdatedStudents();
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Student getStudentById(Long id) {
         return studentRepository.getStudentById(id);
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public long getStudentsCount() {
         return studentRepository.getStudentsCount();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public List<Student> getStudentsWithoutUsername() {
+        return studentRepository.getStudentsWithoutUsername();
     }
 }

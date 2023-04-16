@@ -20,4 +20,6 @@ public interface IStudentService {
     Student getStudentById(Long id);
 
     long getStudentsCount();
+
+    List<Student> getStudentsWithoutUsername();
 }

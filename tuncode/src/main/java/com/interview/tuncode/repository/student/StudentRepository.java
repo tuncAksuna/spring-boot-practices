@@ -22,4 +22,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("select count(std) from Student std")
     long getStudentsCount();
 
+    @Query("select std from Student std where std.username is null")
+    List<Student> getStudentsWithoutUsername();
+
 }

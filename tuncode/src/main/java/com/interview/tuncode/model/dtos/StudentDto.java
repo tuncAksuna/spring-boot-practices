@@ -12,4 +12,5 @@ public class StudentDto {
     private String createdTime;
     private boolean isUpdated;
     private Long token;
+    private String username;
 }

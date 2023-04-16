@@ -66,4 +66,9 @@ public class StudentController {
         return new AppResponse<>(iStudentService.getStudentsCount());
     }
 
+    @GetMapping("/student/studentsWithoutUsername")
+    public AppResponse<List<Student>> getStudentsWithoutUsername() {
+        return new AppResponse<>(iStudentService.getStudentsWithoutUsername());
+    }
+
 }
