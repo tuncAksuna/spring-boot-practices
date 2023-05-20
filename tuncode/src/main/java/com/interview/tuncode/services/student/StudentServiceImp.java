@@ -20,7 +20,6 @@ import java.util.List;
 public class StudentServiceImp implements IStudentService {
 
     private final StudentRepository studentRepository;
-    private static final String DATE_FORMAT = "dd-MM-yyyy";
 
     public StudentServiceImp(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -84,7 +83,7 @@ public class StudentServiceImp implements IStudentService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
-    public String deleteStudent(Long id) {
+    public Long deleteStudent(Long id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
                         new SourceNotFoundException("Student not found in the system with ID: " + id));
@@ -93,7 +92,7 @@ public class StudentServiceImp implements IStudentService {
 
         log.info("{} {} has been successfully deleted from the system !", student.getFirstName(), student.getLastName());
 
-        return "Deleted student from the system";
+        return id;
     }
 
     @Override

@@ -46,7 +46,8 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public AppResponse<String> deleteStudent(@PathVariable @BusinessClass(Student.class) Long id) {
+    public AppResponse<Long> deleteStudent(@PathVariable
+                                           @BusinessClass(Student.class) Long id) {
         return new AppResponse<>(iStudentService.deleteStudent(id));
     }
 
@@ -62,7 +63,7 @@ public class StudentController {
     }
 
     @GetMapping("/student/counts")
-    public AppResponse<Long> getStudentsCount(){
+    public AppResponse<Long> getStudentsCount() {
         return new AppResponse<>(iStudentService.getStudentsCount());
     }
 

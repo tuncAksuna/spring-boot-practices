@@ -13,7 +13,7 @@ public interface IStudentService {
 
     Student updateStudent(Long id, Student studentDetails);
 
-    String deleteStudent(Long id);
+    Long deleteStudent(Long id);
 
     List<Student> getUpdatedStudents();
 
