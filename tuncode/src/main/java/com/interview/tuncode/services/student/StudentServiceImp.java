@@ -4,6 +4,7 @@ import com.interview.tuncode.exceptions.SourceAlreadyExistsException;
 import com.interview.tuncode.exceptions.SourceNotFoundException;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.repository.student.StudentRepository;
+import com.interview.tuncode.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -49,14 +50,14 @@ public class StudentServiceImp implements IStudentService {
                 .firstName(stu.getFirstName())
                 .lastName(stu.getLastName())
                 .email(stu.getEmail())
-                .createdTime(new SimpleDateFormat(DATE_FORMAT).format(new Date()))
+                .createdTime(new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date()))
                 .username(stu.getUsername())
                 .secretText(stu.getSecretText())
                 .studentRole(stu.getStudentRole())
                 .build();
 
 
-        log.info("{} {} has been created - at' {} ", stu.getFirstName(), stu.getLastName(), new SimpleDateFormat(DATE_FORMAT).format(new Date().getTime()));
+        log.info("{} {} has been created - at' {} ", stu.getFirstName(), stu.getLastName(), new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date().getTime()));
 
         return studentRepository.save(newStudent);
     }
@@ -67,17 +68,16 @@ public class StudentServiceImp implements IStudentService {
 
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
-                        new SourceNotFoundException("Student not found in the system ! " + " " + "id" + studentDetails.getId()));
-        log.warn("Student does not exists in the system. Id : {}", student.getId());
+                        new SourceNotFoundException("Student not found in the system ! " + " " + "id " + studentDetails.getId()));
 
         student.setFirstName(studentDetails.getFirstName());
         student.setLastName(studentDetails.getLastName());
         student.setEmail(studentDetails.getEmail());
-        student.setCreatedTime(new SimpleDateFormat(DATE_FORMAT).format(new Date()));
+        student.setCreatedTime(new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date()));
         student.setUpdated(true);
         student.setSecretText(studentDetails.getSecretText());
 
-        log.info("{} {} has been successfully Updated - at' {}  ", studentDetails.getFirstName(), studentDetails.getLastName(), new SimpleDateFormat(DATE_FORMAT).format(new Date().getTime()));
+        log.info("{} {} has been successfully Updated - at' {}  ", studentDetails.getFirstName(), studentDetails.getLastName(), new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date().getTime()));
 
         return studentRepository.save(student);
     }
