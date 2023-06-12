@@ -9,9 +9,9 @@ public interface IStudentService {
 
     List<Student> getStudents();
 
-    Student createStudent(Student stu);
+    void createStudent(Student stu);
 
-    Student updateStudent(Long id, Student studentDetails);
+    void updateStudent(Long id, Student studentDetails);
 
     Long deleteStudent(Long id);
 

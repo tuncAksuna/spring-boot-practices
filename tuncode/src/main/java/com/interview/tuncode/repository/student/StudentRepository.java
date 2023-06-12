@@ -11,7 +11,8 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    Student findByUsername(String username);
+    @Query("select std.id,std.username from Student std where std.username= :username")
+    Student getStudentByUsername(@Param("username") String username);
 
     @Query("select std from Student std where std.isUpdated = true")
     List<Student> getUpdatedStudents();

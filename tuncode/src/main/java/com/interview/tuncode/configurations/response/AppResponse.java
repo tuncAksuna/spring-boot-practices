@@ -1,5 +1,6 @@
 package com.interview.tuncode.configurations.response;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter

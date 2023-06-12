@@ -2,10 +2,13 @@ package com.interview.tuncode.services.student;
 
 import com.interview.tuncode.exceptions.SourceAlreadyExistsException;
 import com.interview.tuncode.exceptions.SourceNotFoundException;
+import com.interview.tuncode.model.Status;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.repository.student.StudentRepository;
 import com.interview.tuncode.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,8 @@ import java.util.List;
 @Slf4j
 public class StudentServiceImp implements IStudentService {
 
+    private static final String ALREADY_EXISTS = " already exists. Please try again with another username";
+
     private final StudentRepository studentRepository;
 
     public StudentServiceImp(StudentRepository studentRepository) {
@@ -28,42 +33,23 @@ public class StudentServiceImp implements IStudentService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Student> getStudents() {
-        log.info("All students brought from the system");
         return studentRepository.findAll();
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
-    public Student createStudent(Student stu) {
-//        Optional<Student> studentOptional = studentRepository.findById(stu.getId());
+    public void createStudent(Student stu) {
+        checkStudentAlready(stu);
 
-        Student student = studentRepository.findByUsername(stu.getUsername());
+        stu.setCreationTime(new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date()));
+        stu.setStatus(Status.getActiveObject());
 
-        if (student != null && student.getUsername().equalsIgnoreCase(stu.getUsername())) {
-            log.warn("{} already created. Please try again with another username !", stu.getUsername());
-            throw new SourceAlreadyExistsException(stu.getUsername() + " already created. Please try again with another username!");
-        }
-
-        Student newStudent = Student
-                .builder()
-                .firstName(stu.getFirstName())
-                .lastName(stu.getLastName())
-                .email(stu.getEmail())
-                .createdTime(new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date()))
-                .username(stu.getUsername())
-                .secretText(stu.getSecretText())
-                .studentRole(stu.getStudentRole())
-                .build();
-
-
-        log.info("{} {} has been created - at' {} ", stu.getFirstName(), stu.getLastName(), new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date().getTime()));
-
-        return studentRepository.save(newStudent);
+        studentRepository.save(stu);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
-    public Student updateStudent(Long id, Student studentDetails) {
+    public void updateStudent(Long id, Student studentDetails) {
 
         Student student = studentRepository.findById(id)
                 .orElseThrow(() ->
@@ -71,23 +57,19 @@ public class StudentServiceImp implements IStudentService {
 
         student.setFirstName(studentDetails.getFirstName());
         student.setLastName(studentDetails.getLastName());
-        student.setEmail(studentDetails.getEmail());
-        student.setCreatedTime(new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date()));
+//        student.setAddress(studentDetails.getAddress());
         student.setUpdated(true);
-        student.setSecretText(studentDetails.getSecretText());
+        student.setUpdatedTime(new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date()));
 
-        log.info("{} {} has been successfully Updated - at' {}  ", studentDetails.getFirstName(), studentDetails.getLastName(), new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date().getTime()));
-
-        return studentRepository.save(student);
+        studentRepository.save(student);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
     public Long deleteStudent(Long id) {
-        Student student = studentRepository.findById(id)
-                .orElseThrow(() ->
-                        new SourceNotFoundException("Student not found in the system with ID: " + id));
+        Student student = getStudent(id);
 
+        student.setStatus(Status.getLogicalDeletedObject());
         studentRepository.delete(student);
 
         log.info("{} {} has been successfully deleted from the system !", student.getFirstName(), student.getLastName());
@@ -117,5 +99,20 @@ public class StudentServiceImp implements IStudentService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Student> getStudentsWithoutUsername() {
         return studentRepository.getStudentsWithoutUsername();
+    }
+
+    private Student getStudent(Long id) {
+        return studentRepository.findById(id)
+                .orElseThrow(() ->
+                        new SourceNotFoundException("Student not found in the system with ID: " + id));
+    }
+
+    private void checkStudentAlready(Student stu) {
+        Student student = studentRepository.getStudentByUsername(stu.getUsername());
+
+        if (student != null) {
+            log.warn(student + ALREADY_EXISTS);
+            throw new SourceAlreadyExistsException(stu.getUsername() + ALREADY_EXISTS);
+        }
     }
 }

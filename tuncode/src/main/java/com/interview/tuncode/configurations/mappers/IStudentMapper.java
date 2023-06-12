@@ -1,7 +1,12 @@
 package com.interview.tuncode.configurations.mappers;
 
 import com.interview.tuncode.model.Student;
+import com.interview.tuncode.model.dtos.requests.StudentCreateRequest;
+import com.interview.tuncode.model.dtos.requests.StudentUpdateRequest;
+import com.interview.tuncode.model.dtos.responses.StudentCreateResponse;
 import com.interview.tuncode.model.dtos.StudentDto;
+import com.interview.tuncode.model.dtos.responses.StudentGetResponse;
+import com.interview.tuncode.model.dtos.responses.StudentUpdateResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -13,7 +18,6 @@ import java.util.List;
 public interface IStudentMapper {
 
     IStudentMapper MAPPER = Mappers.getMapper(IStudentMapper.class);
-
 
     List<Student> mapToStudentsList(List<StudentDto> dto);
 
@@ -30,4 +34,15 @@ public interface IStudentMapper {
             @Mapping(target = "token", source = "entity.secretText")
     })
     StudentDto mapToStudentDto(Student entity);
+
+    Student mapToStudentCreateEntity(StudentCreateRequest request);
+
+    StudentCreateResponse mapToStudentCreateResponse(Student student);
+
+    Student mapToStudentUpdateEntity(StudentUpdateRequest request);
+
+    StudentUpdateResponse mapToStudentUpdateResponse(Student student);
+
+    List<StudentGetResponse> mapToStudentGetResponseList(List<Student> entity);
+
 }
