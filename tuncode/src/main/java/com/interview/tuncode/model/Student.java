@@ -63,9 +63,9 @@ public class Student extends AbstractUpdatedAndInsertingTimeEntity {
      */
     @ManyToOne
             (cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinColumn(name = "STUDENT_ADDRESS_ID")
     private Address address;
 

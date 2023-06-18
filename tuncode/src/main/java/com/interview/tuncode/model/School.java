@@ -1,7 +1,6 @@
 package com.interview.tuncode.model;
 
 import lombok.*;
-import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +13,8 @@ import javax.validation.constraints.Size;
 @ToString
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(name = "SCHOOL_TYPE" , discriminatorType = DiscriminatorType.STRING)
 public class School {
 
     @Id
