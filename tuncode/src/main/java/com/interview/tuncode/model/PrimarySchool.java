@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 
 @NoArgsConstructor
 @ToString
-
 @Entity
 @DiscriminatorValue(CommonConstants.PRIMARY_SCHOOL)
 public class PrimarySchool extends School {
