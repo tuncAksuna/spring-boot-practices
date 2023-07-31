@@ -4,13 +4,9 @@ import com.interview.tuncode.configurations.annotations.BusinessClass;
 import com.interview.tuncode.configurations.mappers.IStudentMapper;
 import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.Student;
-import com.interview.tuncode.model.dtos.requests.StudentCreateRequest;
-import com.interview.tuncode.model.dtos.requests.StudentUpdateRequest;
-import com.interview.tuncode.model.dtos.responses.StudentCreateResponse;
-import com.interview.tuncode.model.dtos.responses.StudentGetResponse;
-import com.interview.tuncode.model.dtos.responses.StudentUpdateResponse;
+import com.interview.tuncode.model.dtos.StudentDto;
 import com.interview.tuncode.services.student.IStudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,35 +14,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/v1/student")
-@CrossOrigin(value = "*")
+@RequiredArgsConstructor
 public class StudentController {
 
     private final IStudentService iStudentService;
 
-    @Autowired
-    public StudentController(IStudentService iStudentService) {
-        this.iStudentService = iStudentService;
-    }
-
     @GetMapping("/getAll")
-    public AppResponse<List<StudentGetResponse>> getStudents() {
-        return new AppResponse<>(IStudentMapper.MAPPER.mapToStudentGetResponseList(iStudentService.getStudents()));
+    public AppResponse<List<StudentDto>> getStudents() {
+        return new AppResponse<>(IStudentMapper.MAPPER.mapToStudentsDtoList(iStudentService.getStudents()));
     }
 
     @PostMapping("/create")
-    public AppResponse<StudentCreateResponse> createStudent(@Valid @RequestBody StudentCreateRequest studentCreateRequest) {
-        Student student = IStudentMapper.MAPPER.mapToStudentCreateEntity(studentCreateRequest);
+    public AppResponse<StudentDto> createStudent(@Valid @RequestBody StudentDto dto) {
+        Student student = IStudentMapper.MAPPER.mapToStudent(dto);
         iStudentService.createStudent(student);
-        return new AppResponse<>(IStudentMapper.MAPPER.mapToStudentCreateResponse(student));
+        return new AppResponse<>(IStudentMapper.MAPPER.mapToStudentDto(student));
     }
 
     @PutMapping("/update/{id}")
-    public AppResponse<StudentUpdateResponse> updateStudent(@PathVariable @BusinessClass(Student.class) Long id,
-                                                            @RequestBody StudentUpdateRequest request) {
-        Student student = IStudentMapper.MAPPER.mapToStudentUpdateEntity(request);
+    public AppResponse<StudentDto> updateStudent(@PathVariable @BusinessClass(Student.class) Long id,
+                                                            @RequestBody StudentDto dto) {
+        Student student = IStudentMapper.MAPPER.mapToStudent(dto);
         student.setId(id);
         iStudentService.updateStudent(id, student);
-        return new AppResponse<>(IStudentMapper.MAPPER.mapToStudentUpdateResponse(student));
+        return new AppResponse<>(IStudentMapper.MAPPER.mapToStudentDto(student));
     }
 
     @DeleteMapping("/delete/{id}")

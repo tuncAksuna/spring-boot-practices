@@ -1,8 +1,7 @@
 package com.interview.tuncode.configurations.mappers;
 
 import com.interview.tuncode.model.Address;
-import com.interview.tuncode.model.dtos.requests.AddressCreateRequest;
-import com.interview.tuncode.model.dtos.responses.AddressCreateResponse;
+import com.interview.tuncode.model.dtos.AddressDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -11,8 +10,7 @@ public interface IAddressMapper {
 
     IAddressMapper MAPPER = Mappers.getMapper(IAddressMapper.class);
 
-    Address mapToAdressEntity(AddressCreateRequest request);
+    Address mapToAdressEntity(AddressDto dto);
 
-    AddressCreateResponse mapToAaddressCreateResponse(Address address);
-
+    AddressDto mapToAddressDto(Address entity);
 }

@@ -10,6 +10,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -29,20 +30,25 @@ public class Student extends AbstractUpdatedAndInsertingTimeEntity {
 
     @Size(max = 20)
     @NotEmpty(message = "{firstName.notempty}")
+    @NotNull
     private String firstName;
 
     @Size(max = 11)
     @NotEmpty(message = "{lastName.notempty}")
+    @NotNull
     private String lastName;
 
     @Email
     @NotEmpty(message = "{email.notempty}")
+    @NotNull
     private String email;
 
     @JsonIgnore
     private boolean isUpdated;
 
     @Column(unique = true)
+    @NotEmpty
+    @NotNull
     private String username;
 
     @Convert(converter = PasswordConverter.class)
