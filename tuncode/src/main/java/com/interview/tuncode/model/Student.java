@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
 @Setter
 
 @Entity
-public class Student extends AbstractUpdatedAndInsertingTimeEntity {
+public class Student extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,7 +71,9 @@ public class Student extends AbstractUpdatedAndInsertingTimeEntity {
             (cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
-            })
+            },
+                    fetch = FetchType.LAZY
+            )
     @JoinColumn(name = "STUDENT_ADDRESS_ID")
     private Address address;
 

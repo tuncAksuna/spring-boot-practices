@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Builder
 
 @Entity
-public class Address extends AbstractUpdatedAndInsertingTimeEntity {
+public class Address extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
