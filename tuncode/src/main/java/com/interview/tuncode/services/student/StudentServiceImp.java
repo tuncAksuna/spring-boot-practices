@@ -51,9 +51,11 @@ public class StudentServiceImp implements IStudentService {
     @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
     public void updateStudent(Long id, Student studentDetails) {
 
-        Student student = studentRepository.findById(id)
-                .orElseThrow(() ->
-                        new SourceNotFoundException("Student not found in the system ! " + " " + "id " + studentDetails.getId()));
+        Student student = studentRepository.getStudentById(id);
+
+        if (student.getId() == null) {
+            throw new SourceNotFoundException("Student not found in the system ! " + studentDetails.getId());
+        }
 
         student.setFirstName(studentDetails.getFirstName());
         student.setLastName(studentDetails.getLastName());
