@@ -23,6 +23,7 @@ import java.util.List;
 public class StudentServiceImp implements IStudentService {
 
     private static final String ALREADY_EXISTS = " already exists. Please try again with another username";
+    private static final int TRANSACTION_TIMEOUT = 3000;
 
     private final StudentRepository studentRepository;
 
@@ -37,7 +38,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
+    @Transactional(propagation = Propagation.REQUIRED, timeout = TRANSACTION_TIMEOUT)
     public void createStudent(Student stu) {
         checkStudentAlready(stu);
 
@@ -48,7 +49,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
+    @Transactional(propagation = Propagation.REQUIRED, timeout = TRANSACTION_TIMEOUT)
     public void updateStudent(Long id, Student studentDetails) {
 
         Student student = studentRepository.getStudentById(id);
@@ -67,7 +68,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, timeout = 3000)
+    @Transactional(propagation = Propagation.REQUIRED, timeout = TRANSACTION_TIMEOUT)
     public Long deleteStudent(Long id) {
         Student student = getStudentById(id);
 

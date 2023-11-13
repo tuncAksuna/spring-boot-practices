@@ -22,13 +22,14 @@ public class AddressServiceImpl implements IAddressService {
 
     private static final String ADDRESS_ALREADY_EXISTS = " already created. Please try again with another 'short description' !";
     private static final String COUNTRY_NOT_FOUND = "Country not found. Please try again !";
+    private static final int TRANSACTION_TIMEOUT = 3000;
 
     public AddressServiceImpl(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, timeout = 3000)
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, timeout = TRANSACTION_TIMEOUT)
     public Long getAddress(Long addressId) {
         if (addressId != null) {
             return addressRepository.getAddressById(addressId);
@@ -55,7 +56,7 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS, timeout = 3000)
+    @Transactional(propagation = Propagation.SUPPORTS, timeout = TRANSACTION_TIMEOUT)
     public Address getAddressByCountry(String country) {
         if (country == null) {
             throw new SourceNotFoundException(COUNTRY_NOT_FOUND);
