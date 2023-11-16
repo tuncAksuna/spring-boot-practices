@@ -75,6 +75,7 @@ public class Student extends Auditable {
                     fetch = FetchType.LAZY
             )
     @JoinColumn(name = "STUDENT_ADDRESS_ID")
+    @ToString.Exclude
     private Address address;
 
 
