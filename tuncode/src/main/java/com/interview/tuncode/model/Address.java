@@ -7,6 +7,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
@@ -24,9 +25,11 @@ public class Address extends Auditable {
     private Long id;
 
     @Column(name = "COUNTRY", nullable = false)
+    @NotEmpty(message = "{address.countryNotEmpty}")
     private String country;
 
     @Column(name = "CITY", nullable = false)
+    @NotEmpty(message = "{address.cityNotEmpty}")
     private String city;
 
     @Column(name = "OPEN_ADDRESS")
