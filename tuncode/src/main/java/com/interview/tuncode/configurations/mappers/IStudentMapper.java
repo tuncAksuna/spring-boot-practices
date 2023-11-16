@@ -16,8 +16,6 @@ public interface IStudentMapper {
 
     List<Student> mapToStudentsList(List<StudentDto> dto);
 
-    List<StudentDto> mapToStudentsDtoList(List<Student> entity);
-
     @Mappings({
             @Mapping(target = "email", source = "dto.emailAddress"),
     })

@@ -7,8 +7,10 @@ import com.interview.tuncode.model.Student;
 import com.interview.tuncode.repository.student.StudentRepository;
 import com.interview.tuncode.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +35,10 @@ public class StudentServiceImp implements IStudentService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public List<Student> getStudents() {
-        return studentRepository.findAll();
+    public Page<Student> getStudents(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+        return studentRepository.findAll(pageable);
     }
 
     @Override

@@ -2,13 +2,14 @@ package com.interview.tuncode.services.student;
 
 
 import com.interview.tuncode.model.Student;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface IStudentService {
 
-    List<Student> getStudents();
-
+    Page<Student> getStudents(int page, int size, String sortBy);
+    
     void createStudent(Student stu);
 
     void updateStudent(Long id, Student studentDetails);

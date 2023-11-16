@@ -7,6 +7,7 @@ import com.interview.tuncode.model.Student;
 import com.interview.tuncode.model.dtos.StudentDto;
 import com.interview.tuncode.services.student.IStudentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,8 +21,12 @@ public class StudentController {
     private final IStudentService iStudentService;
 
     @GetMapping("/getAll")
-    public AppResponse<List<StudentDto>> getStudents() {
-        return new AppResponse<>(IStudentMapper.MAPPER.mapToStudentsDtoList(iStudentService.getStudents()));
+    public AppResponse<Page<Student>> getStudents(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        return new AppResponse<>(iStudentService.getStudents(page, size, sortBy));
     }
 
     @PostMapping("/create")
