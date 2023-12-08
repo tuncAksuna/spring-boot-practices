@@ -6,6 +6,7 @@ import com.interview.tuncode.model.enums.EStudentRole;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -22,6 +23,7 @@ import javax.validation.constraints.Size;
 @Setter
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Student extends Auditable {
 
     @Id
@@ -57,7 +59,7 @@ public class Student extends Auditable {
     @Enumerated(EnumType.STRING)
     private EStudentRole studentRole;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "STUDENT_STATUS_ID")
     @Fetch(FetchMode.SELECT)
     private Status status;
