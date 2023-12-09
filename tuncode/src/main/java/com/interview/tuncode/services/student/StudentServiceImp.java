@@ -46,8 +46,7 @@ public class StudentServiceImp implements IStudentService {
     public void createStudent(Student stu) {
         checkStudentAlready(stu);
 
-//        stu.setCreatedTime(new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date()));
-//        stu.setStatus(Status.getActiveObject()); TODO : CASCASE YA DA JOIN YAPISINDA BİR YANLIŞLIK VAR !!!
+        stu.setStatus(Status.getActiveObject());
 
         studentRepository.save(stu);
     }
@@ -77,7 +76,7 @@ public class StudentServiceImp implements IStudentService {
         Student student = getStudentById(id);
 
         student.setStatus(Status.getLogicalDeletedObject());
-        studentRepository.deleteStudent(id);
+        //studentRepository.deleteStudent(id);
 
         log.info("{} {} has been successfully deleted from the system !", student.getFirstName(), student.getLastName());
 

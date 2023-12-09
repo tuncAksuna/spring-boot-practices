@@ -12,23 +12,19 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    @Query("select std.id,std.username from Student std where std.username= :username")
+    @Query("select std.id,std.username from Student std where std.username= :username and std.status.id = 1")
     Student getStudentByUsername(@Param("username") String username);
 
-    @Modifying
-    @Query("delete from Student s where s.id = :id")
-    void deleteStudent(@Param("id") Long id);
-
-    @Query("select std from Student std where std.isUpdated = true")
+    @Query("select std from Student std where std.isUpdated = true and std.status.id = 1")
     List<Student> getUpdatedStudents();
 
-    @Query("select std from Student std where std.id = :id")
+    @Query("select std from Student std where std.id = :id and std.status.id = 1")
     Student getStudentById(@Param("id") Long id);
 
-    @Query("select count(std) from Student std")
+    @Query("select count(std) from Student std where std.status.id = 1")
     long getStudentsCount();
 
-    @Query("select std from Student std where std.username is null")
+    @Query("select std from Student std where std.username is null and std.status.id = 1")
     List<Student> getStudentsWithoutUsername();
 
 }
