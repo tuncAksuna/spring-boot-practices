@@ -107,11 +107,6 @@ public class StudentServiceImp implements IStudentService {
         return studentRepository.getStudentsWithoutUsername();
     }
 
-    private Student getStudent(Long id) {
-        return studentRepository.findById(id)
-                .orElseThrow(() ->
-                        new SourceNotFoundException("Student not found in the system with ID: " + id));
-    }
 
     private void checkStudentAlready(Student stu) {
         Student student = studentRepository.getStudentByUsername(stu.getUsername());
