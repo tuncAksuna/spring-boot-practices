@@ -65,7 +65,6 @@ public class StudentServiceImp implements IStudentService {
         student.setLastName(studentDetails.getLastName());
 //        student.setAddress(studentDetails.getAddress());
         student.setUpdated(true);
-        student.setUpdatedTime(new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date()));
 
         studentRepository.save(student);
     }
