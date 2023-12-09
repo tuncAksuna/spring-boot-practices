@@ -1,8 +1,9 @@
 package com.interview.tuncode.repository.student;
 
 import com.interview.tuncode.model.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -26,5 +27,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query("select std from Student std where std.username is null and std.status.id = 1")
     List<Student> getStudentsWithoutUsername();
+
+    @Query("select std from Student std where std.status.id = 1")
+    Page<List<Student>> findAllPaginated(Pageable pageable);
 
 }

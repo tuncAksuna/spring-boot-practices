@@ -21,7 +21,7 @@ public class StudentController {
     private final IStudentService iStudentService;
 
     @GetMapping("/getAll")
-    public AppResponse<Page<Student>> getStudents(
+    public AppResponse<Page<List<Student>>> getStudents(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sortBy

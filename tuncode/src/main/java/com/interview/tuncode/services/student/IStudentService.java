@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IStudentService {
 
-    Page<Student> getStudents(int page, int size, String sortBy);
+    Page<List<Student>> getStudents(int page, int size, String sortBy);
     
     void createStudent(Student stu);
 
