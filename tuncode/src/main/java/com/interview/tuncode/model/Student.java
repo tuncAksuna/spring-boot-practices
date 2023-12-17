@@ -13,6 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -80,5 +81,10 @@ public class Student extends Auditable {
     @ToString.Exclude
     private Address address;
 
-
+    @OneToMany(targetEntity = StudentComment.class,
+            mappedBy = "student", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @Column(name = "COMMENT_OF_STUDENT")
+    private List<StudentComment> studentComments;
 }
