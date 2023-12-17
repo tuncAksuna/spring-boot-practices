@@ -1,4 +1,4 @@
-package com.interview.tuncode.repository;
+package com.interview.tuncode.repository.comment;
 
 import com.interview.tuncode.model.StudentComment;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,11 +1,11 @@
-package com.interview.tuncode.services.studentcomment;
+package com.interview.tuncode.services.comment;
 
 import com.interview.tuncode.exceptions.SourceAlreadyExistsException;
 import com.interview.tuncode.exceptions.SourceNotFoundException;
 import com.interview.tuncode.model.Status;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.model.StudentComment;
-import com.interview.tuncode.repository.StudentCommentRepository;
+import com.interview.tuncode.repository.comment.StudentCommentRepository;
 import com.interview.tuncode.services.student.StudentServiceImp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

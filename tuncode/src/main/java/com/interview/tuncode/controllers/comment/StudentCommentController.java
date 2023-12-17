@@ -3,7 +3,7 @@ package com.interview.tuncode.controllers.comment;
 import com.interview.tuncode.configurations.annotations.BusinessClass;
 import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.StudentComment;
-import com.interview.tuncode.services.studentcomment.IStudentCommentService;
+import com.interview.tuncode.services.comment.IStudentCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

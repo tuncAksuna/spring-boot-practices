@@ -1,4 +1,4 @@
-package com.interview.tuncode.services.studentcomment;
+package com.interview.tuncode.services.comment;
 
 import com.interview.tuncode.model.StudentComment;
 
