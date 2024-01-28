@@ -11,25 +11,26 @@ spring:
     active: tr
     default: eng
   datasource:
-    url: ENC(RiCa4xMGWfeVEGLuY4oNB/Zok5NxprnPkhHgIGg6R9mQePvRPZi6fVwQMLG62+L0CVHbROp3tDvRlP4rz+Gpcw==)
-    username: ENC(WIhLyy1umQV1ZcV9uM0ptC6tIEerSfV+IhazI0s90OINTTLuav6oqlbXF63lXrf6)
-    password: ENC(YLJ8W8Nf/9QXevjPSElJIpN4yrS/NhRc9Jx5Mws58UiRZgJzWOtzTQ/bJP8MS3wv)
-    driver-class-name: org.h2.Driver
+    url: ENC(CuHOTrVAKh/MGFipOtVEw+jKDUtNTsWtJQy5OHHwNds5C3EO0vfM/h6Y1IkTS2yHYdgAlsz9fIvcy35zsccOQ/f7yP5XEK2Ez8RbdwVjoUWOomlwLsmysAoIBKlIhnZ4)
+    username: ENC(UpKOotTkMK+0aRCHmbhi9koAYnMbGWc7oWzFGUbkx/h5QvWx2TlpEJj+27HLLMYG1U6nqklep3v7/UvmpfYYcg==)
+    password: ENC(ULykFyR73RmVB2rYw81cPwWyoVlOSdr9BttSsU73kNR2fTodOJXGYMmZfjE//HVE)
+#    driver-class-name: org.h2.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+#    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 #        format_sql: true
         show_sql: true
   h2:
     console:
       enabled: true
-  security:
-    user:
-      name: ENC(pEKivJEVqKBxvOKt3nSWVJt14kz1fzL3c39n2o3cwCUcRQcpbLDAcxaV9h3d+5ph)
-      password: ENC(v1hc6COGOuOgTcg6vtB28pTjBEHfoJN0+o1Pr4Z/KPUDnvP60v3lKZ8hRt4wyv54)
+#  security:
+#    user:
+#      name: ENC(pEKivJEVqKBxvOKt3nSWVJt14kz1fzL3c39n2o3cwCUcRQcpbLDAcxaV9h3d+5ph)
+#      password: ENC(v1hc6COGOuOgTcg6vtB28pTjBEHfoJN0+o1Pr4Z/KPUDnvP60v3lKZ8hRt4wyv54)
 
 logging:
   pattern:
