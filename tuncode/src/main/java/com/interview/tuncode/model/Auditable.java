@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,18 +17,19 @@ import javax.persistence.MappedSuperclass;
 public abstract class Auditable {
 
     @CreatedBy
+    @Column(updatable = false)
     protected String createdBy;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false, updatable = false)
     @CreatedDate
-    protected String createdTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    protected LocalDateTime createdTime;
 
     @LastModifiedBy
     protected String lastModifiedBy;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
     @LastModifiedDate
-    protected String updatedTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    protected LocalDateTime updatedTime;
 }
 
