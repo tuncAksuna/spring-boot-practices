@@ -35,7 +35,7 @@ public class StudentCommentServiceImp implements IStudentCommentService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = SourceAlreadyExistsException.class)
     public String createComment(StudentComment comment, Long studentId) {
         if (studentId == null) {
             throw new SourceAlreadyExistsException("Student not found !");
