@@ -34,27 +34,32 @@ public class Student extends Auditable {
     @Size(max = 20)
     @NotEmpty(message = "{firstName.notempty}")
     @NotNull
+    @Column(name = "FIRSTNAME")
     private String firstName;
 
     @Size(max = 11)
     @NotEmpty(message = "{lastName.notempty}")
     @NotNull
+    @Column(name = "LASTNAME")
     private String lastName;
 
     @Email
     @NotEmpty(message = "{email.notempty}")
     @NotNull
+    @Column(name = "EMAIL")
     private String email;
 
     @JsonIgnore
+    @Column(name = "IS_UPDATED")
     private boolean isUpdated;
 
-    @Column(unique = true)
     @NotEmpty
     @NotNull
+    @Column(name = "USERNAME",unique = true)
     private String username;
 
     @Convert(converter = PasswordConverter.class)
+    @Column(name = "SECRET_TEXT")
     private String secretText;
 
     @Enumerated(EnumType.STRING)
