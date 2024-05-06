@@ -55,8 +55,11 @@ public class StudentCommentServiceImp implements IStudentCommentService {
     public Long deleteStudentComment(Long studentCommentId) {
         StudentComment studentComment = studentCommentRepository.getStudentCommentById(studentCommentId);
 
-        studentComment.setStatus(Status.getLogicalDeletedObject());
-        log.info("Deleted student comment with id : {} ", studentCommentId);
+        if (studentComment != null) {
+            studentComment.setStatus(Status.getLogicalDeletedObject());
+            studentCommentRepository.save(studentComment);
+            log.info("Deleted student comment with id : {} ", studentCommentId);
+        }
 
         return studentCommentId;
     }
