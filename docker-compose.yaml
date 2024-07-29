@@ -1,0 +1,13 @@
+version: ‘3.7'
+
+services:
+  sprinbootpracties-postgre-db:
+    image: postgres
+    container_name: springbootpractices-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: springbootpractices
+      POSTGRES_PASSWORD: M.orkazak2323.
+      POSTGRES_DB: 1.0_springbootpracticesdb
