@@ -9,10 +9,7 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 
@@ -32,14 +29,12 @@ public class Student extends Auditable {
     private Long id;
 
     @Size(max = 20)
-    @NotEmpty(message = "{firstName.notempty}")
-    @NotNull
+    @NotBlank
     @Column(name = "FIRSTNAME")
     private String firstName;
 
     @Size(max = 11)
-    @NotEmpty(message = "{lastName.notempty}")
-    @NotNull
+    @NotBlank
     @Column(name = "LASTNAME")
     private String lastName;
 
@@ -53,8 +48,7 @@ public class Student extends Auditable {
     @Column(name = "IS_UPDATED")
     private boolean isUpdated;
 
-    @NotEmpty
-    @NotNull
+    @NotBlank
     @Column(name = "USERNAME",unique = true)
     private String username;
 

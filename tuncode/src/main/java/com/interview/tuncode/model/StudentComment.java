@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,8 +27,7 @@ public class StudentComment extends Auditable {
     private Long id;
 
     @Column(name = "commentDetail")
-    @NotEmpty
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 256)
     private String commentDetail;
 
