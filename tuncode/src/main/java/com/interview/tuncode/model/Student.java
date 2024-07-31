@@ -49,7 +49,7 @@ public class Student extends Auditable {
     private boolean isUpdated;
 
     @NotBlank
-    @Column(name = "USERNAME",unique = true)
+    @Column(name = "USERNAME", unique = true)
     private String username;
 
     @Convert(converter = PasswordConverter.class)
@@ -77,13 +77,8 @@ public class Student extends Auditable {
                     fetch = FetchType.LAZY
             )
     @JoinColumn(name = "STUDENT_ADDRESS_ID")
-    @ToString.Exclude
     private Address address;
 
-    @OneToMany(targetEntity = StudentComment.class,
-            mappedBy = "student", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @Column(name = "COMMENT_OF_STUDENT")
+    @OneToMany(mappedBy = "student")
     private List<StudentComment> studentComments;
 }

@@ -1,7 +1,6 @@
 package com.interview.tuncode.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -9,8 +8,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -26,12 +23,10 @@ public class StudentComment extends Auditable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
     private Long id;
 
-    @Column(name = "commentDetail")
     @NotBlank
     @Size(min = 1, max = 256)
     private String commentDetail;
 
-    @Column(name = "numberOfLikeOfTheComment")
     private Long numberOfLikeOfTheComment;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -40,14 +35,8 @@ public class StudentComment extends Auditable {
     private Status status;
 
     @ManyToOne(targetEntity = Student.class,
-            cascade = {
-                    CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH
-            })
-    @JoinColumn(name = "STUDENT_ID", nullable = false)
-    @JsonIgnore
+            fetch = FetchType.EAGER)
+    @JoinColumn(name = "STUDENT_ID", referencedColumnName = "id")
     private Student student;
 
 }
