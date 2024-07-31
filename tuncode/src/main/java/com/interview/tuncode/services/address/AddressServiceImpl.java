@@ -45,7 +45,6 @@ public class AddressServiceImpl implements IAddressService {
             throw new SourceNotFoundException(adr.getCity() + ADDRESS_ALREADY_EXISTS);
         }
         adr.setStatus(Status.getActiveObject());
-        adr.setCreatedTime(new SimpleDateFormat(DateUtils.ENUM.DATE_FORMAT.getValue()).format(new Date()));
         addressRepository.save(adr);
     }
 
