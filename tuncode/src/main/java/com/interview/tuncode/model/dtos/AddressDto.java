@@ -10,4 +10,5 @@ public class AddressDto {
     private String city;
     private String country;
     private String openAddress;
+    private String shortDescription;
 }

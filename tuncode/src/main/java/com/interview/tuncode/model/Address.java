@@ -4,6 +4,7 @@ package com.interview.tuncode.model;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +18,7 @@ import javax.validation.constraints.Size;
 @Builder
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Address extends Auditable {
 
     @Id
@@ -34,7 +36,7 @@ public class Address extends Auditable {
     @Column(name = "OPEN_ADDRESS")
     private String openAddress;
 
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(unique = true,updatable = false)
     @NotBlank
     @Size(min = 3, max = 9)
     private String shortDescription;
