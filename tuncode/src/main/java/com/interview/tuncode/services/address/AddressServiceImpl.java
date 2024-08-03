@@ -4,14 +4,11 @@ import com.interview.tuncode.exceptions.SourceNotFoundException;
 import com.interview.tuncode.model.Address;
 import com.interview.tuncode.model.Status;
 import com.interview.tuncode.repository.address.AddressRepository;
-import com.interview.tuncode.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service
