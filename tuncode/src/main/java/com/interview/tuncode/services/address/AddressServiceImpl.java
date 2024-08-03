@@ -20,7 +20,7 @@ public class AddressServiceImpl implements IAddressService {
 
     private final AddressRepository addressRepository;
 
-    private static final String ADDRESS_ALREADY_EXISTS = " already created. Please try again with another 'short description' !";
+    private static final String ADDRESS_ALREADY_EXISTS = " already created. Please try again !";
     private static final String COUNTRY_NOT_FOUND = "Country not found. Please try again !";
     private static final int TRANSACTION_TIMEOUT = 3000;
 
