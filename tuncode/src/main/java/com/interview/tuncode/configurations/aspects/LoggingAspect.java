@@ -4,10 +4,7 @@ import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.Address;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,12 +31,24 @@ public class LoggingAspect {
      */
     @AfterReturning(pointcut = "execution(* com.interview.tuncode.controllers.address.AdressController.getAllAdresses(..))",
             returning = "response")
-    public void afterReturningCreateStudent(JoinPoint joinPoint, AppResponse<List<Address>> response) {
+    public void afterReturningGetAllAddresses(JoinPoint joinPoint, AppResponse<List<Address>> response) {
         log.info("{} ! \t Method name: {}  \t Response: {} \t Status Code: {}",
                 joinPoint.getKind().toUpperCase(),
                 joinPoint.getSignature().getName(),
                 response.getData(),
                 response.getStatus());
+    }
+
+    /**
+     * For all methods in the "Address Package", it is triggered if an exception occurs after it runs.
+     */
+    @AfterThrowing(pointcut = "execution(* com.interview.tuncode.services.address..*(..))",
+            throwing = "exc")
+    public void afterThrowingForServicePackage(JoinPoint joinPoint, Throwable exc) {
+        log.error("An error occured ! \t Method name: {} \t Declaring Type: {} \t EXCEPTION Message: {}",
+                joinPoint.getSignature().getName(),
+                joinPoint.getSignature().getDeclaringTypeName(),
+                exc.toString());
     }
 
     @Pointcut("execution(* com.interview.tuncode.controllers..*(..))")
