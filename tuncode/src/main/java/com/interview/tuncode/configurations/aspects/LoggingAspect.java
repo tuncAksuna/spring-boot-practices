@@ -1,14 +1,14 @@
 package com.interview.tuncode.configurations.aspects;
 
 import com.interview.tuncode.configurations.response.AppResponse;
-import com.interview.tuncode.exceptions.SourceAlreadyExistsException;
 import com.interview.tuncode.exceptions.SourceNotFoundException;
 import com.interview.tuncode.model.Address;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.core.annotation.Order;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +16,7 @@ import java.util.List;
 @Aspect
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class LoggingAspect {
 
     /**
@@ -58,17 +59,19 @@ public class LoggingAspect {
     @Around("execution(public void updateStudent(..))")
     public Object aroundForAllServicesPackage(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result;
-        try {
-            long startTime = System.currentTimeMillis();
-            result = proceedingJoinPoint.proceed();
-            long endTime = System.currentTimeMillis();
-            log.info("\n {} ! \n Duration milliseconds: {} \n RESULT: {} ",
-                    proceedingJoinPoint.getKind().toUpperCase(),
-                    endTime - startTime / 1000.0,
-                    result);
+        MethodSignature ms = (MethodSignature) proceedingJoinPoint.getSignature();
 
+        try {
+            result = proceedingJoinPoint.proceed();
+            log.info("{} method successfully executed !", ms.getMethod());
         } catch (Exception exc) {
-            log.error("@Around Exception: {}", exc.toString());
+            long startTime = System.currentTimeMillis();
+            long endTime = System.currentTimeMillis();
+            log.error("An error occurred !\n{} !\nMethod args: {}\nMethod: {}\nDuration milliseconds: {}",
+                    proceedingJoinPoint.getKind().toUpperCase(),
+                    proceedingJoinPoint.getArgs(),
+                    ms.getMethod(),
+                    endTime - startTime / 1000.0);
             throw new SourceNotFoundException(exc.getMessage());
         }
 
