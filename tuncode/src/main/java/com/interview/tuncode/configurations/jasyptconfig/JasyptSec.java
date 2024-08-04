@@ -1,11 +1,11 @@
 package com.interview.tuncode.configurations.jasyptconfig;
 
+import com.interview.tuncode.commonutils.CommonUtils;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 import java.util.Scanner;
 
@@ -21,14 +21,14 @@ public class JasyptSec {
     public static StringEncryptor jasyptStringEncryptorBuilder() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword("tuncodespringboot-practices");
-        config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
-        config.setKeyObtentionIterations("1000");
-        config.setPoolSize("1");
-        config.setProviderName("SunJCE");
-        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
-        config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
-        config.setStringOutputType("base64");
+        config.setPassword(CommonUtils.JasyptEncryptor.PASSWORD);
+        config.setAlgorithm(CommonUtils.JasyptEncryptor.ALGORITHM);
+        config.setKeyObtentionIterations(CommonUtils.JasyptEncryptor.KEY_OBTENTION_ITERATIONS);
+        config.setPoolSize(CommonUtils.JasyptEncryptor.POOL_SIZE);
+        config.setProviderName(CommonUtils.JasyptEncryptor.PRODIVER_NAME);
+        config.setSaltGeneratorClassName(CommonUtils.JasyptEncryptor.SALT_GENERATOR_CLASS_NAME);
+        config.setIvGeneratorClassName(CommonUtils.JasyptEncryptor.IV_GENERATOR_CLASS_NAME);
+        config.setStringOutputType(CommonUtils.JasyptEncryptor.STRING_OUTPUT_TYPE);
         encryptor.setConfig(config);
         return encryptor;
     }
