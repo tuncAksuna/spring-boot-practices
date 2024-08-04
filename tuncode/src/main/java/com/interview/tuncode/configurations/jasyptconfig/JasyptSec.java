@@ -25,7 +25,7 @@ public class JasyptSec {
         config.setAlgorithm(CommonUtils.JasyptEncryptor.ALGORITHM);
         config.setKeyObtentionIterations(CommonUtils.JasyptEncryptor.KEY_OBTENTION_ITERATIONS);
         config.setPoolSize(CommonUtils.JasyptEncryptor.POOL_SIZE);
-        config.setProviderName(CommonUtils.JasyptEncryptor.PRODIVER_NAME);
+        config.setProviderName(CommonUtils.JasyptEncryptor.PROVIDER_NAME);
         config.setSaltGeneratorClassName(CommonUtils.JasyptEncryptor.SALT_GENERATOR_CLASS_NAME);
         config.setIvGeneratorClassName(CommonUtils.JasyptEncryptor.IV_GENERATOR_CLASS_NAME);
         config.setStringOutputType(CommonUtils.JasyptEncryptor.STRING_OUTPUT_TYPE);
