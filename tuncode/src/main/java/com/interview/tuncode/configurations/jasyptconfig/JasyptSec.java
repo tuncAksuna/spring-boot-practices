@@ -1,6 +1,5 @@
 package com.interview.tuncode.configurations.jasyptconfig;
 
-import com.interview.tuncode.commonutils.CommonUtils;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
@@ -21,15 +20,16 @@ public class JasyptSec {
     public static StringEncryptor jasyptStringEncryptorBuilder() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword(CommonUtils.JasyptEncryptor.PASSWORD);
-        config.setAlgorithm(CommonUtils.JasyptEncryptor.ALGORITHM);
-        config.setKeyObtentionIterations(CommonUtils.JasyptEncryptor.KEY_OBTENTION_ITERATIONS);
-        config.setPoolSize(CommonUtils.JasyptEncryptor.POOL_SIZE);
-        config.setProviderName(CommonUtils.JasyptEncryptor.PROVIDER_NAME);
-        config.setSaltGeneratorClassName(CommonUtils.JasyptEncryptor.SALT_GENERATOR_CLASS_NAME);
-        config.setIvGeneratorClassName(CommonUtils.JasyptEncryptor.IV_GENERATOR_CLASS_NAME);
-        config.setStringOutputType(CommonUtils.JasyptEncryptor.STRING_OUTPUT_TYPE);
+        config.setPassword("tuncodespringboot-practices");
+        config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
+        config.setKeyObtentionIterations("1000");
+        config.setPoolSize("1");
+        config.setProviderName("SunJCE");
+        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+        config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
+        config.setStringOutputType("base64");
         encryptor.setConfig(config);
+
         return encryptor;
     }
 
@@ -40,7 +40,7 @@ public class JasyptSec {
             while (true) {
                 System.out.println("1-Encrypt");
                 System.out.println("2-Decrypt");
-                System.out.println("2-Exit");
+                System.out.println("3-Exit");
                 System.out.println("Your choose: ");
                 int menuIndex = scanner.nextInt();
 
