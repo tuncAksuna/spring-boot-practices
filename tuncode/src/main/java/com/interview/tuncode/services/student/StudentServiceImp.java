@@ -6,6 +6,7 @@ import com.interview.tuncode.model.Status;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.repository.student.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +32,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
+    @Cacheable(cacheNames = "allStudents")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Page<List<Student>> getStudents(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
@@ -70,16 +72,14 @@ public class StudentServiceImp implements IStudentService {
     @Transactional(propagation = Propagation.REQUIRED, timeout = TRANSACTION_TIMEOUT)
     public Long deleteStudent(Long id) {
         Student student = getStudentById(id);
-
         student.setStatus(Status.getLogicalDeletedObject());
-        //studentRepository.deleteStudent(id);
-
         log.info("{} {} has been successfully deleted from the system !", student.getFirstName(), student.getLastName());
 
         return id;
     }
 
     @Override
+    @Cacheable(cacheNames = "updateStudents")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Student> getUpdatedStudents() {
         return studentRepository.getUpdatedStudents();

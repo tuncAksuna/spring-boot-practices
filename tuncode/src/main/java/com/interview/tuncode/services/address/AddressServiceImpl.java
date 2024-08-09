@@ -5,6 +5,7 @@ import com.interview.tuncode.model.Address;
 import com.interview.tuncode.model.Status;
 import com.interview.tuncode.repository.address.AddressRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +47,7 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
+    @Cacheable(cacheNames = "addresses")
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Address> getAllAdresses() {
         return addressRepository.findAll();
