@@ -79,7 +79,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
-    @Cacheable(cacheNames = "updateStudents")
+    @Cacheable(cacheNames = "updateStudents", condition = "#result.size() > 50")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Student> getUpdatedStudents() {
         return studentRepository.getUpdatedStudents();
