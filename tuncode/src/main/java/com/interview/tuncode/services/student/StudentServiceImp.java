@@ -6,6 +6,7 @@ import com.interview.tuncode.model.Status;
 import com.interview.tuncode.model.Student;
 import com.interview.tuncode.repository.student.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,6 +42,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "allStudents", allEntries = true)
     @Transactional(propagation = Propagation.REQUIRED, timeout = TRANSACTION_TIMEOUT)
     public void createStudent(Student stu) {
         checkStudentAlready(stu);
@@ -51,6 +53,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "allStudents", allEntries = true)
     @Transactional(propagation = Propagation.REQUIRED, timeout = TRANSACTION_TIMEOUT)
     public void updateStudent(Long id, Student studentDetails) {
 
@@ -69,6 +72,7 @@ public class StudentServiceImp implements IStudentService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "allStudents", allEntries = true)
     @Transactional(propagation = Propagation.REQUIRED, timeout = TRANSACTION_TIMEOUT)
     public Long deleteStudent(Long id) {
         Student student = getStudentById(id);
