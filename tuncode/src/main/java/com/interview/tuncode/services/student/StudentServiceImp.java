@@ -1,5 +1,6 @@
 package com.interview.tuncode.services.student;
 
+import com.interview.tuncode.configurations.aspects.CalculatePerform;
 import com.interview.tuncode.exceptions.SourceAlreadyExistsException;
 import com.interview.tuncode.exceptions.SourceNotFoundException;
 import com.interview.tuncode.model.Status;
@@ -35,6 +36,7 @@ public class StudentServiceImp implements IStudentService {
     @Override
     @Cacheable(cacheNames = "allStudents")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    @CalculatePerform
     public Page<List<Student>> getStudents(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 
@@ -84,24 +86,28 @@ public class StudentServiceImp implements IStudentService {
 
     @Override
     @Cacheable(cacheNames = "updateStudents", condition = "#result.size() > 50")
+    @CalculatePerform
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Student> getUpdatedStudents() {
         return studentRepository.getUpdatedStudents();
     }
 
     @Override
+    @CalculatePerform
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Student getStudentById(Long id) {
         return studentRepository.getStudentById(id);
     }
 
     @Override
+    @CalculatePerform
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public long getStudentsCount() {
         return studentRepository.getStudentsCount();
     }
 
     @Override
+    @CalculatePerform
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Student> getStudentsWithoutUsername() {
         return studentRepository.getStudentsWithoutUsername();

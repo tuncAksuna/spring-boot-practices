@@ -61,12 +61,9 @@ public class LoggingAspect {
      * It runs before and after the updateStudent method is executed.
      * If it throws an exception while proceeding, this exception is caught,
      * an error log is printed on the console, and the exception is thrown back again (SourceNotFoundException).
-     *
-     * @param proceedingJoinPoint
-     * @throws Throwable
      */
-    @Around("execution(public void updateStudent(..))")
-    public Object aroundForAllServicesPackage(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    @Around(value = "@annotation(calculatePerform)", argNames = "proceedingJoinPoint,calculatePerform")
+    public Object aroundForAllServicesPackage(ProceedingJoinPoint proceedingJoinPoint, CalculatePerform calculatePerform) throws Throwable {
         Object result;
         MethodSignature ms = (MethodSignature) proceedingJoinPoint.getSignature();
 

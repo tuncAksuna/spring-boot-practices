@@ -1,5 +1,6 @@
 package com.interview.tuncode.services.comment;
 
+import com.interview.tuncode.configurations.aspects.CalculatePerform;
 import com.interview.tuncode.exceptions.SourceAlreadyExistsException;
 import com.interview.tuncode.exceptions.SourceNotFoundException;
 import com.interview.tuncode.model.Status;
@@ -26,6 +27,7 @@ public class StudentCommentServiceImp implements IStudentCommentService {
     private final StudentServiceImp studentService;
 
     @Override
+    @CalculatePerform
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, timeout = TRANSACTION_TIMEOUT)
     public List<StudentComment> getAllStudentComment(Long studentId) {
         if (studentId != null) {

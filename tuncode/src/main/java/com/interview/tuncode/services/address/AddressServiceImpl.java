@@ -1,5 +1,6 @@
 package com.interview.tuncode.services.address;
 
+import com.interview.tuncode.configurations.aspects.CalculatePerform;
 import com.interview.tuncode.exceptions.SourceNotFoundException;
 import com.interview.tuncode.model.Address;
 import com.interview.tuncode.model.Status;
@@ -27,6 +28,7 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
+    @CalculatePerform
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, timeout = TRANSACTION_TIMEOUT)
     public Long getAddress(Long addressId) {
         if (addressId != null) {
@@ -47,6 +49,7 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
+    @CalculatePerform
     @Cacheable(cacheNames = "addresses")
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Address> getAllAdresses() {
@@ -54,6 +57,7 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
+    @CalculatePerform
     @Transactional(propagation = Propagation.SUPPORTS, timeout = TRANSACTION_TIMEOUT)
     public Address getAddressByCountry(String country) {
         if (country == null) {
