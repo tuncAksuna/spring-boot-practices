@@ -58,7 +58,7 @@ public class LoggingAspect {
 
 
     /**
-     * It runs before and after the updateStudent method is executed.
+     * Runs before and after all methods using the "ProceedingJoinPoint" object
      * If it throws an exception while proceeding, this exception is caught,
      * an error log is printed on the console, and the exception is thrown back again (SourceNotFoundException).
      */
