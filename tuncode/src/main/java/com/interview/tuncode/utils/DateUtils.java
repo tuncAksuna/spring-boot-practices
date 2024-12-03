@@ -1,5 +1,10 @@
 package com.interview.tuncode.utils;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class DateUtils {
 
     public enum ENUM implements BaseEnum<String> {

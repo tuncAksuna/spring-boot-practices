@@ -1,8 +1,8 @@
-package com.interview.tuncode.configurations.jpa;
+package com.interview.tuncode.configurations.encoder;
 
 import com.interview.tuncode.configurations.jasyptconfig.JasyptSec;
 
-import javax.persistence.AttributeConverter;
+import jakarta.persistence.AttributeConverter;
 
 public class PasswordConverter implements AttributeConverter<String,String> {
     @Override

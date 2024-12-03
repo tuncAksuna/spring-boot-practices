@@ -1,15 +1,15 @@
 package com.interview.tuncode.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.interview.tuncode.configurations.jpa.PasswordConverter;
+import com.interview.tuncode.configurations.encoder.PasswordConverter;
 import com.interview.tuncode.model.enums.EStudentRole;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.util.List;
 
 

@@ -1,13 +1,12 @@
 package com.interview.tuncode.controllers.comment;
 
-import com.interview.tuncode.configurations.annotations.BusinessClass;
 import com.interview.tuncode.configurations.response.AppResponse;
 import com.interview.tuncode.model.StudentComment;
 import com.interview.tuncode.services.comment.IStudentCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,8 +22,7 @@ public class StudentCommentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public AppResponse<Long> deleteStudentComment(@PathVariable
-                                                  @BusinessClass(StudentComment.class) Long id) {
+    public AppResponse<Long> deleteStudentComment(@PathVariable Long id) {
 
         return new AppResponse<>(studentCommentService.deleteStudentComment(id));
     }

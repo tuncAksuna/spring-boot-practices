@@ -3,7 +3,7 @@ package com.interview.tuncode.model;
 import com.interview.tuncode.utils.BaseEnum;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "STATUS")
