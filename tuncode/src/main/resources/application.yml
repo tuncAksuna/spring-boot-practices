@@ -8,9 +8,9 @@ management:
         include: '*'
 
 spring:
-  profiles:
-    active:
-      - 'qa'
+#  profiles:
+#    active:
+#      - 'prod'
   datasource:
     url: ENC(R2FaulM1TNhmwoQ622C2TmIWpNUoU8OQ583AM+PkBYf5jrOZcIcLDPd0v0cgkCyYQbi9PKsGsJtFQrS7iQy9pnMs2+gTSxxQdN86EJt/mBo6RvI0h9z1omTOwTx8pF9E)
     username: ENC(vS/bCicZa3+Xs8Yj+i6T0d2S1iV4zhYFzCNweCBkc1DysPFMXX+Y22ywaIZoreBw)

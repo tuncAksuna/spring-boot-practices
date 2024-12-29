@@ -1,0 +1,23 @@
+server:
+  port: 8090
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: oauth2-client
+            client-secret: EAQsIvuCV58M5Hxg04hUwsFcIKO2a9V7
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8090/login/oauth2/code/oauth2-client
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/oauth2-client-realm
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+
